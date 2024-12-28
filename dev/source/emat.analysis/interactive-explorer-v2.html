@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="../emat.examples/index.html" />
-    <link rel="prev" title="Analysis" href="index.html" /> 
+    <link rel="next" title="Feature Scoring" href="feature-scoring.html" />
+    <link rel="prev" title="Identifying Model Problems" href="corruption.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,11 +51,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Analysis</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#visualization">Visualization</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="corruption.html">Identifying Model Problems</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Interactive Visualizer</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#single-dimension-figures">Single Dimension Figures</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#changing-selections">Changing Selections</a></li>
@@ -296,8 +299,8 @@ lasso, or from an expression. Or, you can write a new expression as the PRIM tar
 <p>The tradeoff selector is directly integrated into the explorer.  In addition
 to the information visible by hovering over any point in the tradeoff selector
 figure, clicking on that point will create a two new selection in the explorer,
-a “Target” selection which highlights the PRIM target with the selected <code class="xref py py-class docutils literal notranslate"><span class="pre">PrimBox</span></code>
-bounds overlaid, and a “Solution” selection which converts the selected <code class="xref py py-class docutils literal notranslate"><span class="pre">PrimBox</span></code>
+a “Target” selection which highlights the PRIM target with the selected <a class="reference internal" href="prim.html#emat.analysis.PrimBox" title="emat.analysis.PrimBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrimBox</span></code></a>
+bounds overlaid, and a “Solution” selection which converts the selected <a class="reference internal" href="prim.html#emat.analysis.PrimBox" title="emat.analysis.PrimBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrimBox</span></code></a>
 into a standard <a class="reference internal" href="../emat.scope/boxes.html#emat.Box" title="emat.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">emat.Box</span></code></a>, settinh all of the interactive constraints to the
 bounds given by that particular point.  This highlights all the data points that are inside the
 box, instead of those in the original target.  In this manner you can use PRIM to
@@ -419,7 +422,7 @@ is cleared.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> (<a class="reference internal" href="../emat.scope/boxes.html#emat.Box" title="emat.Box"><em>Box</em></a><em>, </em><em>PrimBox</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, or </em><em>array-like</em>) – The new selection.  If given as an <cite>emat.Box</cite>,
+<li><p><strong>value</strong> (<a class="reference internal" href="../emat.scope/boxes.html#emat.Box" title="emat.Box"><em>Box</em></a><em>, </em><a class="reference internal" href="prim.html#emat.analysis.PrimBox" title="emat.analysis.PrimBox"><em>PrimBox</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, or </em><em>array-like</em>) – The new selection.  If given as an <cite>emat.Box</cite>,
 the selection is defined entirely by the boundaries of the
 box, as applied to the visualizer data.
 If given as a <cite>PrimBox</cite>, the box boundaries are defined
@@ -748,8 +751,8 @@ data to create a new target.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../emat.examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="corruption.html" class="btn btn-neutral float-left" title="Identifying Model Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="feature-scoring.html" class="btn btn-neutral float-right" title="Feature Scoring" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

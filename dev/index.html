@@ -50,6 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="source/emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.database/index.html">Databases</a></li>
@@ -218,6 +219,18 @@ It also includes similarly licensed code from the <a class="reference external" 
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="source/emat.design/emat.design.html">Experimental Designs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.design/emat.design.html#Univariate-Sensitivity-Tests">Univariate Sensitivity Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.design/emat.design.html#Efficient-Designs">Efficient Designs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.design/emat.design.html#Reference-Designs">Reference Designs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.design/emat.design.html#Experimental-Design-API">Experimental Design API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_experiments"><code class="docutils literal notranslate"><span class="pre">design_experiments()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_sensitivity_tests"><code class="docutils literal notranslate"><span class="pre">design_sensitivity_tests()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.design/emat.design.html#emat.experiment.experimental_design.design_refpoint_test"><code class="docutils literal notranslate"><span class="pre">design_refpoint_test()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.models/index.html">Core Models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.models/abstract.html">Basic EMAT Model API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.models/abstract.html#emat.model.AbstractCoreModel"><code class="docutils literal notranslate"><span class="pre">AbstractCoreModel</span></code></a></li>
@@ -249,6 +262,11 @@ It also includes similarly licensed code from the <a class="reference external" 
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.metamodels/index.html">Meta Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.metamodels/creation.html">Meta-Model Creation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.metamodels/creation.html#Design-Sizing">Design Sizing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.metamodels/creation.html#Partial-Metamodels">Partial Metamodels</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.metamodels/api.html">Meta-Model API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.metamodels/api.html#emat.create_metamodel"><code class="docutils literal notranslate"><span class="pre">create_metamodel()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.metamodels/api.html#emat.MetaModel"><code class="docutils literal notranslate"><span class="pre">MetaModel</span></code></a></li>
@@ -277,17 +295,31 @@ It also includes similarly licensed code from the <a class="reference external" 
 <li class="toctree-l3"><a class="reference internal" href="source/emat.database/sqlitedb.html#meta-models">Meta-Models</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="source/emat.database/database-walkthrough.html">Database Walkthrough</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Single-Design-Datasets">Single-Design Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Multiple-Design-Datasets">Multiple-Design Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.database/database-walkthrough.html#Re-running-Experiments">Re-running Experiments</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="source/emat.analysis/index.html">Analysis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/emat.analysis/index.html#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/splom.html">Scatter Plot Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/corruption.html">Identifying Model Problems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/interactive-explorer-v2.html">Interactive Visualizer</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="source/emat.analysis/index.html#scenario-discovery">Scenario Discovery</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="source/emat.analysis/index.html#scenario-discovery">Scenario Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/feature-scoring.html">Feature Scoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/prim.html">PRIM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/cart.html">CART</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="source/emat.analysis/index.html#directed-search">Directed Search</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="source/emat.analysis/index.html#directed-search">Directed Search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/policy-contrast.html">Policy Contrast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/optimization.html">Optimization Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/emat.analysis/optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a></li>
 </ul>
 </li>
 </ul>

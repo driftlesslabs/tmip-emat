@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Interactive Visualizer" href="interactive-explorer-v2.html" />
-    <link rel="prev" title="SQLite Database" href="../emat.database/sqlitedb.html" /> 
+    <link rel="next" title="Scatter Plot Matrix" href="splom.html" />
+    <link rel="prev" title="Database Walkthrough" href="../emat.database/database-walkthrough.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,18 +51,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../emat.intro.html">Introduction to EMAT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.install.html">Installation and Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.scope/index.html">Exploratory Scoping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../emat.design/emat.design.html">Experimental Designs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.models/index.html">Core Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.metamodels/index.html">Meta Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../emat.database/index.html">Databases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="corruption.html">Identifying Model Problems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="interactive-explorer-v2.html">Interactive Visualizer</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#scenario-discovery">Scenario Discovery</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#scenario-discovery">Scenario Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="feature-scoring.html">Feature Scoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prim.html">PRIM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cart.html">CART</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#directed-search">Directed Search</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="#directed-search">Directed Search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="policy-contrast.html">Policy Contrast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html">Optimization Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a></li>
 </ul>
 </li>
 </ul>
@@ -107,6 +116,18 @@ to conceptualize the potentially complex relationships represented
 in transportation models.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="splom.html">Scatter Plot Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="splom.html#Contrasting-Sets-of-Experiments">Contrasting Sets of Experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splom.html#Scatter-Plot-Matrix-API">Scatter Plot Matrix API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="splom.html#emat.analysis.display_experiments"><code class="docutils literal notranslate"><span class="pre">display_experiments()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="splom.html#emat.analysis.contrast_experiments"><code class="docutils literal notranslate"><span class="pre">contrast_experiments()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="splom.html#emat.viz.scatter_graphs"><code class="docutils literal notranslate"><span class="pre">scatter_graphs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="splom.html#emat.viz.scatter_graphs_2"><code class="docutils literal notranslate"><span class="pre">scatter_graphs_2()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="corruption.html">Identifying Model Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interactive-explorer-v2.html">Interactive Visualizer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#single-dimension-figures">Single Dimension Figures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="interactive-explorer-v2.html#changing-selections">Changing Selections</a></li>
@@ -165,6 +186,77 @@ what factor or combination of factors can result in those outcomes.
 There are a variety of methods to use for scenario discovery.
 We illustrate a few here.</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="feature-scoring.html">Feature Scoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Road-Test-Feature-Scores">Road Test Feature Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Interpreting-Feature-Scores">Interpreting Feature Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Threshold-Scoring">Threshold Scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scoring.html#Feature-Scoring-API">Feature Scoring API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="feature-scoring.html#emat.analysis.feature_scoring.feature_scores"><code class="docutils literal notranslate"><span class="pre">feature_scores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="feature-scoring.html#emat.analysis.feature_scoring.threshold_feature_scores"><code class="docutils literal notranslate"><span class="pre">threshold_feature_scores()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prim.html">PRIM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#The-Mechanics-of-using-PRIM">The Mechanics of using PRIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#Non-Rectangular-Boxes">Non-Rectangular Boxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prim.html#PRIM-API">PRIM API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="prim.html#emat.analysis.Prim"><code class="docutils literal notranslate"><span class="pre">Prim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.boxes"><code class="docutils literal notranslate"><span class="pre">Prim.boxes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.boxes_to_dataframe"><code class="docutils literal notranslate"><span class="pre">Prim.boxes_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.determine_coi"><code class="docutils literal notranslate"><span class="pre">Prim.determine_coi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.find_box"><code class="docutils literal notranslate"><span class="pre">Prim.find_box()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.show_boxes"><code class="docutils literal notranslate"><span class="pre">Prim.show_boxes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.stats"><code class="docutils literal notranslate"><span class="pre">Prim.stats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.stats_to_dataframe"><code class="docutils literal notranslate"><span class="pre">Prim.stats_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.to_emat_boxes"><code class="docutils literal notranslate"><span class="pre">Prim.to_emat_boxes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.Prim.tradeoff_selector"><code class="docutils literal notranslate"><span class="pre">Prim.tradeoff_selector()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="prim.html#emat.analysis.PrimBox"><code class="docutils literal notranslate"><span class="pre">PrimBox</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.box_number"><code class="docutils literal notranslate"><span class="pre">PrimBox.box_number()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.drop_restriction"><code class="docutils literal notranslate"><span class="pre">PrimBox.drop_restriction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.explore"><code class="docutils literal notranslate"><span class="pre">PrimBox.explore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.hmm"><code class="docutils literal notranslate"><span class="pre">PrimBox.hmm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.inspect"><code class="docutils literal notranslate"><span class="pre">PrimBox.inspect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.resample"><code class="docutils literal notranslate"><span class="pre">PrimBox.resample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.select"><code class="docutils literal notranslate"><span class="pre">PrimBox.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.show_pairs_scatter"><code class="docutils literal notranslate"><span class="pre">PrimBox.show_pairs_scatter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.show_ppt"><code class="docutils literal notranslate"><span class="pre">PrimBox.show_ppt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.show_tradeoff"><code class="docutils literal notranslate"><span class="pre">PrimBox.show_tradeoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.splom"><code class="docutils literal notranslate"><span class="pre">PrimBox.splom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.to_emat_box"><code class="docutils literal notranslate"><span class="pre">PrimBox.to_emat_box()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.to_json"><code class="docutils literal notranslate"><span class="pre">PrimBox.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.tradeoff_selector"><code class="docutils literal notranslate"><span class="pre">PrimBox.tradeoff_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.update"><code class="docutils literal notranslate"><span class="pre">PrimBox.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="prim.html#emat.analysis.PrimBox.write_ppt_to_stdout"><code class="docutils literal notranslate"><span class="pre">PrimBox.write_ppt_to_stdout()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cart.html">CART</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cart.html#The-Mechanics-of-using-CART">The Mechanics of using CART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cart.html#CART-API">CART API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cart.html#emat.analysis.CART"><code class="docutils literal notranslate"><span class="pre">CART</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.boxes"><code class="docutils literal notranslate"><span class="pre">CART.boxes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.boxes_to_dataframe"><code class="docutils literal notranslate"><span class="pre">CART.boxes_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.build_tree"><code class="docutils literal notranslate"><span class="pre">CART.build_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.select"><code class="docutils literal notranslate"><span class="pre">CART.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.show_boxes"><code class="docutils literal notranslate"><span class="pre">CART.show_boxes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.show_tree"><code class="docutils literal notranslate"><span class="pre">CART.show_tree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.stats"><code class="docutils literal notranslate"><span class="pre">CART.stats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.stats_to_dataframe"><code class="docutils literal notranslate"><span class="pre">CART.stats_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cart.html#emat.analysis.CART.tree_chooser"><code class="docutils literal notranslate"><span class="pre">CART.tree_chooser()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 <section id="directed-search">
@@ -176,6 +268,26 @@ tools only consider cases that have already been evaluated.
 In directed search, we transition to tools that will propose
 and execute <em>new</em> cases.</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="policy-contrast.html">Policy Contrast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Multi-Objective-Optimization">Multi-Objective Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Robust-Optimization">Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Robustness-Functions">Robustness Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html#Mechanics-of-Using-Optimization">Mechanics of Using Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Policy-Optimization:-Search-over-Levers">Policy Optimization: Search over Levers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Worst-Case-Discovery:-Search-over-Uncertainties">Worst Case Discovery: Search over Uncertainties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html#Using-Robust-Optimization">Using Robust Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimization.html#Constraints">Constraints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 </section>
@@ -184,8 +296,8 @@ and execute <em>new</em> cases.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../emat.database/sqlitedb.html" class="btn btn-neutral float-left" title="SQLite Database" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="interactive-explorer-v2.html" class="btn btn-neutral float-right" title="Interactive Visualizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../emat.database/database-walkthrough.html" class="btn btn-neutral float-left" title="Database Walkthrough" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="splom.html" class="btn btn-neutral float-right" title="Scatter Plot Matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
