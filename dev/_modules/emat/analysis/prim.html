@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.analysis.prim &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.analysis.prim &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -85,23 +85,23 @@
              
   <h1>Source code for emat.analysis.prim</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
 
-<span class="kn">from</span> <span class="nn">..workbench.analysis</span> <span class="kn">import</span> <span class="n">prim</span>
-<span class="kn">from</span> <span class="nn">..workbench.analysis.scenario_discovery_util</span> <span class="kn">import</span> <span class="n">RuleInductionType</span>
-<span class="kn">from</span> <span class="nn">..workbench.analysis.prim_util</span> <span class="kn">import</span> <span class="n">PrimException</span>
-<span class="kn">from</span> <span class="nn">..scope.box</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">,</span> <span class="n">Boxes</span>
-<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">.discovery</span> <span class="kn">import</span> <span class="n">ScenarioDiscoveryMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">prim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.analysis.scenario_discovery_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">RuleInductionType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.analysis.prim_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Bounds</span><span class="p">,</span> <span class="n">Boxes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScenarioDiscoveryMixin</span>
 
 
-<span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">graph_objects</span> <span class="k">as</span> <span class="n">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly</span><span class="w"> </span><span class="kn">import</span> <span class="n">graph_objects</span> <span class="k">as</span> <span class="n">go</span>
 
 <div class="viewcode-block" id="Prim">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.Prim">[docs]</a>
-<span class="k">class</span> <span class="nc">Prim</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">Prim</span><span class="p">,</span> <span class="n">ScenarioDiscoveryMixin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Prim</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">Prim</span><span class="p">,</span> <span class="n">ScenarioDiscoveryMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Patient rule induction method</span>
 
@@ -160,7 +160,7 @@
 
 <div class="viewcode-block" id="Prim.find_box">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.Prim.find_box">[docs]</a>
-    <span class="k">def</span> <span class="nf">find_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Execute one iteration of the PRIM algorithm.</span>
 
@@ -181,7 +181,7 @@
         <span class="n">primbox</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">=</span> <span class="n">PrimBox</span>
         <span class="n">prim_explorer</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_explorer&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">prim_explorer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.explore_2.explore_visualizer</span> <span class="kn">import</span> <span class="n">Visualizer</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.explore_2.explore_visualizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualizer</span>
             <span class="n">subdata</span> <span class="o">=</span> <span class="n">prim_explorer</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">primbox</span><span class="o">.</span><span class="n">yi_initial</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subdata</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prim_explorer</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
                 <span class="c1"># Generally, second and later boxes get new subvisualizers</span>
@@ -198,7 +198,7 @@
 
 <div class="viewcode-block" id="Prim.tradeoff_selector">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.Prim.tradeoff_selector">[docs]</a>
-    <span class="k">def</span> <span class="nf">tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Visualize the trade off between coverage and density.</span>
 
@@ -246,7 +246,7 @@
         <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">tradeoff_selector</span><span class="p">(</span><span class="n">colorscale</span><span class="o">=</span><span class="n">colorscale</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="n">figure_class</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boxes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
@@ -256,7 +256,7 @@
                 <span class="k">raise</span>
         <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">explorer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">explorer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_target_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">explorer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -268,12 +268,12 @@
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">scope</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">scope</span>
             <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">.explore_2.explore_visualizer</span> <span class="kn">import</span> <span class="n">Visualizer</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">.explore_2.explore_visualizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualizer</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_explorer</span> <span class="o">=</span> <span class="n">Visualizer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_discrete_color_scale</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_discrete_color_scale</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
     <span class="n">colors</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
     <span class="n">colorlist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -286,7 +286,7 @@
 
 <div class="viewcode-block" id="PrimBox">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox">[docs]</a>
-<span class="k">class</span> <span class="nc">PrimBox</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">PrimBox</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrimBox</span><span class="p">(</span><span class="n">prim</span><span class="o">.</span><span class="n">PrimBox</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Information for a specific Prim box.</span>
 
@@ -297,7 +297,7 @@
 
 <div class="viewcode-block" id="PrimBox.box_number">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.box_number">[docs]</a>
-    <span class="k">def</span> <span class="nf">box_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">box_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of PRIM iterations up to and including this PrimBox.</span>
 
@@ -312,7 +312,7 @@
 
 <div class="viewcode-block" id="PrimBox.to_emat_box">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.to_emat_box">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_emat_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_emat_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the current PrimBox to a standard emat.Box.</span>
 
@@ -346,7 +346,7 @@
         <span class="k">return</span> <span class="n">b</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cur_box</span>
         <span class="n">head</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> peel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">peeling_trajectory</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
@@ -370,7 +370,7 @@
 
 <div class="viewcode-block" id="PrimBox.to_json">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.to_json">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write out the current PrimBox in json format.</span>
 
@@ -380,11 +380,11 @@
         <span class="n">state</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">peeling_trajectory</span><span class="p">)):</span>
             <span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_emat_box</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
-        <span class="kn">import</span> <span class="nn">json</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">state</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_make_tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;cividis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;cividis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Visualize the trade off between coverage and density. Color</span>
 <span class="sd">        is used to denote the number of restricted dimensions.</span>
@@ -451,7 +451,7 @@
         <span class="p">)</span>
 
         <span class="c1"># create callback function</span>
-        <span class="k">def</span> <span class="nf">select_point</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">select_point</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">points</span><span class="o">.</span><span class="n">point_inds</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
@@ -461,7 +461,7 @@
 
 <div class="viewcode-block" id="PrimBox.tradeoff_selector">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.tradeoff_selector">[docs]</a>
-    <span class="k">def</span> <span class="nf">tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tradeoff_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">figure_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Visualize the trade off between coverage and density.</span>
 
@@ -505,7 +505,7 @@
 
 <div class="viewcode-block" id="PrimBox.select">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.select">[docs]</a>
-    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Select an entry from the peeling and pasting trajectory.</span>
 
@@ -532,7 +532,7 @@
                 <span class="n">widget</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;marker&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sizes</span>
             <span class="n">explorer</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_explorer&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">explorer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">.explore_2.explore_base</span> <span class="kn">import</span> <span class="n">DataFrameExplorerBase</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">.explore_2.explore_base</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameExplorerBase</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">explorer</span><span class="p">,</span> <span class="n">DataFrameExplorerBase</span><span class="p">):</span>
                     <span class="n">name_t</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;PRIM Box </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">box_number</span><span class="p">()</span><span class="si">}</span><span class="s2"> Target [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_name</span><span class="si">}</span><span class="s2">]&quot;</span>
                     <span class="n">name_s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;PRIM Box </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">box_number</span><span class="p">()</span><span class="si">}</span><span class="s2"> Solution [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_name</span><span class="si">}</span><span class="s2">]&quot;</span>
@@ -560,7 +560,7 @@
 
 <div class="viewcode-block" id="PrimBox.explore">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.explore">[docs]</a>
-    <span class="k">def</span> <span class="nf">explore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">explore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create or access the existing visualizer.</span>
 
@@ -574,7 +574,7 @@
 <span class="sd">            emat.Visualizer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_explorer&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">.explore_2.explore_visualizer</span> <span class="kn">import</span> <span class="n">Visualizer</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.explore_2.explore_visualizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualizer</span>
             <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prim</span><span class="o">.</span><span class="n">x</span>
             <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -588,7 +588,7 @@
 
 <div class="viewcode-block" id="PrimBox.splom">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.splom">[docs]</a>
-    <span class="k">def</span> <span class="nf">splom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">splom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a scatter plot matrix showing this PrimBox.</span>
 
@@ -616,7 +616,7 @@
 
 <div class="viewcode-block" id="PrimBox.hmm">
 <a class="viewcode-back" href="../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.hmm">[docs]</a>
-    <span class="k">def</span> <span class="nf">hmm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hmm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a heatmap matrix showing this CartBox.</span>
 

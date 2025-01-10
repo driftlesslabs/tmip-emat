@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e3b17623",
+   "id": "b7e77ac2",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "3145846a",
+   "id": "d6fb583b",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -23,7 +23,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "893b2d34",
+   "id": "2df42365",
    "metadata": {},
    "source": [
     "# PRIM\n",
@@ -84,7 +84,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cb91ea2b",
+   "id": "69e15a72",
    "metadata": {},
    "source": [
     "## The Mechanics of using PRIM"
@@ -92,7 +92,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "dbc07e44",
+   "id": "311b113e",
    "metadata": {},
    "source": [
     "In order to use PRIM for scenario discovery, the analyst must\n",
@@ -104,7 +104,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f3a268c1",
+   "id": "730ff329",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -116,7 +116,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "985befea",
+   "id": "28fe85a5",
    "metadata": {},
    "source": [
     "In order to use PRIM for scenario discovery, the analyst must\n",
@@ -147,7 +147,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "adedfd93",
+   "id": "859c1c0f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -156,7 +156,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "98ebd1b3",
+   "id": "6f20d28a",
    "metadata": {},
    "source": [
     "Having defined the cases of interest, to use PRIM we pass the\n",
@@ -167,7 +167,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "77c2f318",
+   "id": "cac05088",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -177,7 +177,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "0c1ae218",
+   "id": "4a7ab546",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -192,7 +192,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b989ea0a",
+   "id": "52d180ef",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -201,7 +201,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "99d2fb61",
+   "id": "bb1c1bc1",
    "metadata": {},
    "source": [
     "The `find_box` command actually provides a number of different possible boxes\n",
@@ -213,7 +213,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "32e49804",
+   "id": "da4a5426",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -222,7 +222,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e1c12f83",
+   "id": "9931c08c",
    "metadata": {},
    "source": [
     "This figure shows the trade-off between coverage and density.\n",
@@ -253,7 +253,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "eb448149",
+   "id": "d27bd3f3",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -262,7 +262,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5b710d2c",
+   "id": "aac91c5a",
    "metadata": {},
    "source": [
     "In a Jupyter notebook, the analyst can interactively view and select other possible\n",
@@ -279,7 +279,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "49d5a995",
+   "id": "89a3bf99",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -288,7 +288,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f3acb14b",
+   "id": "2025d56e",
    "metadata": {},
    "source": [
     "In addition to the point-and-click interface, the analyst can also manually set \n",
@@ -299,7 +299,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d93e0b83",
+   "id": "45bff58c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -309,7 +309,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e76e84bb",
+   "id": "28783871",
    "metadata": {},
    "source": [
     "To help visualize these restricted dimensions better, we can \n",
@@ -329,7 +329,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "99d7040f",
+   "id": "fe7ee66e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -338,7 +338,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b3b82565",
+   "id": "4ed846aa",
    "metadata": {},
    "source": [
     "Depending on the number of experiments in the data and the number \n",
@@ -349,7 +349,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6914979c",
+   "id": "1384cefd",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -358,7 +358,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "798bcecf",
+   "id": "3c111283",
    "metadata": {},
    "source": [
     "## Non-Rectangular Boxes"
@@ -366,7 +366,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "411886ae",
+   "id": "56adce5d",
    "metadata": {},
    "source": [
     "Regardless of any analyst intervention in box selection\n",
@@ -386,7 +386,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5c81b460",
+   "id": "9ef17448",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -396,7 +396,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c9577417",
+   "id": "89ffe964",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -405,7 +405,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e452375c",
+   "id": "952f1f7e",
    "metadata": {},
    "source": [
     "The cases considered for the second box are *only* those cases\n",
@@ -420,7 +420,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d658966a",
+   "id": "44066ad4",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -429,7 +429,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "bfa3026e",
+   "id": "fa927486",
    "metadata": {},
    "source": [
     "We can also make a similar scatter plot for this second box.\n",
@@ -452,7 +452,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "16777f01",
+   "id": "74ffff71",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -463,7 +463,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "a0bfb906",
+   "id": "6d9f9370",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },

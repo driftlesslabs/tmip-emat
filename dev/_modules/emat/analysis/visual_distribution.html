@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.analysis.visual_distribution &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.analysis.visual_distribution &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -85,12 +85,12 @@
              
   <h1>Source code for emat.analysis.visual_distribution</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">emat.viz</span> <span class="kn">import</span> <span class="n">scatter_graphs</span><span class="p">,</span> <span class="n">scatter_graphs_2</span>
-<span class="kn">from</span> <span class="nn">emat.viz.scatter</span> <span class="kn">import</span> <span class="n">ScatterMass</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">display_html</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">emat.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">scatter_graphs</span><span class="p">,</span> <span class="n">scatter_graphs_2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">emat.viz.scatter</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScatterMass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">display_html</span>
 
 
-<span class="k">def</span> <span class="nf">_shorten_category_names</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">experiment_results</span><span class="p">,</span> <span class="n">original_cats</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_shorten_category_names</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">experiment_results</span><span class="p">,</span> <span class="n">original_cats</span><span class="p">):</span>
 	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_all_names</span><span class="p">():</span>
 		<span class="n">abbrev</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scope</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="s1">&#39;abbrev&#39;</span><span class="p">,</span> <span class="p">{})</span>
 		<span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">experiment_results</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -104,7 +104,7 @@
 	<span class="k">return</span> <span class="n">experiment_results</span><span class="p">,</span> <span class="n">original_cats</span>
 
 
-<span class="k">def</span> <span class="nf">_restore_category_names</span><span class="p">(</span><span class="n">experiment_results</span><span class="p">,</span> <span class="n">original_cats</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_restore_category_names</span><span class="p">(</span><span class="n">experiment_results</span><span class="p">,</span> <span class="n">original_cats</span><span class="p">):</span>
 	<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">original_cats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="n">experiment_results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">v</span>
@@ -117,7 +117,7 @@
 
 <div class="viewcode-block" id="display_experiments">
 <a class="viewcode-back" href="../../../source/emat.analysis/splom.html#emat.analysis.display_experiments">[docs]</a>
-<span class="k">def</span> <span class="nf">display_experiments</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">display_experiments</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">experiment_results</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -234,7 +234,7 @@
 
 <div class="viewcode-block" id="contrast_experiments">
 <a class="viewcode-back" href="../../../source/emat.analysis/splom.html#emat.analysis.contrast_experiments">[docs]</a>
-<span class="k">def</span> <span class="nf">contrast_experiments</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">contrast_experiments</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">experiments_1</span><span class="p">,</span>
 		<span class="n">experiments_2</span><span class="p">,</span>

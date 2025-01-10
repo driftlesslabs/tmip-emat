@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.analysis.feature_scoring &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.analysis.feature_scoring &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -85,20 +85,20 @@
              
   <h1>Source code for emat.analysis.feature_scoring</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">..workbench.analysis</span> <span class="kn">import</span> <span class="n">feature_scoring</span>
-<span class="kn">from</span> <span class="nn">..viz</span> <span class="kn">import</span> <span class="n">heatmap_table</span>
-<span class="kn">from</span> <span class="nn">..scope.box</span> <span class="kn">import</span> <span class="n">Box</span>
-<span class="kn">from</span> <span class="nn">..util.arg_processing</span> <span class="kn">import</span> <span class="n">design_check</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">MissingMeasuresWarning</span><span class="p">,</span> <span class="n">MissingMeasuresError</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">feature_scoring</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">heatmap_table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.arg_processing</span><span class="w"> </span><span class="kn">import</span> <span class="n">design_check</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MissingMeasuresWarning</span><span class="p">,</span> <span class="n">MissingMeasuresError</span>
 
 
 <div class="viewcode-block" id="feature_scores">
 <a class="viewcode-back" href="../../../source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.feature_scores">[docs]</a>
-<span class="k">def</span> <span class="nf">feature_scores</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">feature_scores</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">design</span><span class="p">,</span>
 		<span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;styled&#39;</span><span class="p">,</span>
@@ -207,7 +207,7 @@
 	<span class="k">if</span> <span class="n">shortnames</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 		<span class="k">if</span> <span class="n">shortnames</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
 			<span class="n">shortnames</span> <span class="o">=</span> <span class="n">scope</span>
-		<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shortnames</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
 			<span class="n">fs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">shortnames</span><span class="o">.</span><span class="n">shortname</span><span class="p">)</span>
 		<span class="k">else</span><span class="p">:</span>
@@ -229,13 +229,13 @@
 			<span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
 		<span class="p">)</span>
 	<span class="k">elif</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;styled&#39;</span><span class="p">:</span>
-		<span class="kn">from</span> <span class="nn">..util.styling</span> <span class="kn">import</span> <span class="n">feature_score_styling</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">..util.styling</span><span class="w"> </span><span class="kn">import</span> <span class="n">feature_score_styling</span>
 		<span class="k">return</span> <span class="n">feature_score_styling</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">fs</span><span class="o">.</span><span class="n">T</span></div>
 
 
-<span class="k">def</span> <span class="nf">box_feature_scores</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">box_feature_scores</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">box</span><span class="p">,</span>
 		<span class="n">design</span><span class="p">,</span>
@@ -292,7 +292,7 @@
 		<span class="n">exclude_parameters</span><span class="o">=</span><span class="n">box</span><span class="o">.</span><span class="n">thresholds</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
 	<span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">target_feature_scores</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">target_feature_scores</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">target</span><span class="p">,</span>
 		<span class="n">design</span><span class="p">,</span>
@@ -331,7 +331,7 @@
 <span class="sd">	This function internally uses feature_scoring from the EMA Workbench, which in turn</span>
 <span class="sd">	scores features using the &quot;extra trees&quot; classification approach.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="kn">import</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">numpy</span>
+	<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span>
 
 	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 		<span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -370,7 +370,7 @@
 
 	<span class="n">design_</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">drop_cols</span><span class="p">))</span>
 
-	<span class="kn">from</span> <span class="nn">..workbench.analysis.scenario_discovery_util</span> <span class="kn">import</span> <span class="n">RuleInductionType</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.analysis.scenario_discovery_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">RuleInductionType</span>
 
 	<span class="n">target_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 	<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -409,7 +409,7 @@
 		<span class="k">return</span> <span class="n">fs</span><span class="o">.</span><span class="n">T</span>
 
 
-<span class="k">def</span> <span class="nf">_col_breakpoints</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_col_breakpoints</span><span class="p">(</span>
         <span class="n">data_col</span><span class="p">,</span>
         <span class="n">min_tail</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">max_breaks</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -434,7 +434,7 @@
 
 <div class="viewcode-block" id="threshold_feature_scores">
 <a class="viewcode-back" href="../../../source/emat.analysis/feature-scoring.html#emat.analysis.feature_scoring.threshold_feature_scores">[docs]</a>
-<span class="k">def</span> <span class="nf">threshold_feature_scores</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold_feature_scores</span><span class="p">(</span>
 		<span class="n">scope</span><span class="p">,</span>
 		<span class="n">measure_name</span><span class="p">,</span>
 		<span class="n">design</span><span class="p">,</span>
@@ -538,8 +538,8 @@
 		<span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">text_color_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 	<span class="k">if</span> <span class="s1">&#39;figure&#39;</span> <span class="ow">in</span> <span class="n">return_type</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-		<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-		<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+		<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
 
 		<span class="n">base_score</span> <span class="o">=</span> <span class="n">feature_scores</span><span class="p">(</span>
 			<span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
@@ -621,7 +621,7 @@
 			<span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 			<span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
 		<span class="p">)</span>
-		<span class="kn">from</span> <span class="nn">..util.rendering</span> <span class="kn">import</span> <span class="n">render_plotly</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">..util.rendering</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_plotly</span>
 		<span class="k">return</span> <span class="n">render_plotly</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">return_type</span><span class="p">)</span>
 
 	<span class="k">return</span> <span class="n">result</span></div>
@@ -629,9 +629,9 @@
 
 
 
-<span class="k">def</span> <span class="nf">_max_luminosity_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">max_lum</span><span class="o">=</span><span class="mf">0.333</span><span class="p">,</span> <span class="nb">bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mc</span>
-	<span class="kn">import</span> <span class="nn">colorsys</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_max_luminosity_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">max_lum</span><span class="o">=</span><span class="mf">0.333</span><span class="p">,</span> <span class="nb">bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
+	<span class="kn">import</span><span class="w"> </span><span class="nn">colorsys</span>
 	<span class="k">try</span><span class="p">:</span>
 		<span class="n">c</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">cnames</span><span class="p">[</span><span class="n">color</span><span class="p">]</span>
 	<span class="k">except</span><span class="p">:</span>
@@ -644,9 +644,9 @@
 	<span class="k">else</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">new_c</span>
 
-<span class="k">def</span> <span class="nf">_darker_and_lighter_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">lum_diff</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="nb">bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mc</span>
-	<span class="kn">import</span> <span class="nn">colorsys</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_darker_and_lighter_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">lum_diff</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="nb">bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
+	<span class="kn">import</span><span class="w"> </span><span class="nn">colorsys</span>
 	<span class="k">try</span><span class="p">:</span>
 		<span class="n">c</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">cnames</span><span class="p">[</span><span class="n">color</span><span class="p">]</span>
 	<span class="k">except</span><span class="p">:</span>

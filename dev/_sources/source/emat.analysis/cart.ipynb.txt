@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "75f2e8ea",
+   "id": "8df421c9",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "be3621ea",
+   "id": "f1782dee",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -23,7 +23,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "56be778e",
+   "id": "09203fa1",
    "metadata": {},
    "source": [
     "# CART\n",
@@ -36,7 +36,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c5b36ce0",
+   "id": "3d29411d",
    "metadata": {},
    "source": [
     "## The Mechanics of using CART"
@@ -44,7 +44,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "1223ae7c",
+   "id": "9f548104",
    "metadata": {},
    "source": [
     "In order to use CART for scenario discovery, the analyst must\n",
@@ -56,7 +56,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "65d7c87b",
+   "id": "c77316e5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -68,7 +68,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d78b5bf3",
+   "id": "6ade8be2",
    "metadata": {},
    "source": [
     "In order to use CART for scenario discovery, the analyst must\n",
@@ -99,7 +99,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "921d30e5",
+   "id": "60e6dbd9",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -108,7 +108,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "feecb25e",
+   "id": "e1fe0b37",
    "metadata": {},
    "source": [
     "Having defined the cases of interest, to use CART we pass the\n",
@@ -119,7 +119,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "fdb79d7c",
+   "id": "b0c6fb34",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -135,7 +135,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "06858489",
+   "id": "168eb28b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -145,7 +145,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2403abab",
+   "id": "76060c88",
    "metadata": {},
    "source": [
     "The CART algorithm develops a tree that seeks to make the \"best\" split\n",
@@ -174,7 +174,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a45e72ed",
+   "id": "7d815bf2",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -183,7 +183,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2ca6d259",
+   "id": "0e856037",
    "metadata": {},
    "source": [
     "This table shows various leaf node \"boxes\" as well as the trade-offs \n",
@@ -208,7 +208,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e6710b8d",
+   "id": "87a6081d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -218,7 +218,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "76b98853",
+   "id": "aaf299dd",
    "metadata": {},
    "source": [
     "To help visualize these restricted dimensions better, we can \n",
@@ -238,7 +238,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "0d4fdfec",
+   "id": "7dcb09cb",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -247,7 +247,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "68872b4b",
+   "id": "f0e27b9a",
    "metadata": {},
    "source": [
     "Depending on the number of experiments in the data and the number \n",
@@ -258,7 +258,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "69c7a493",
+   "id": "da8fa2f4",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -267,7 +267,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "e86bd065",
+   "id": "63ae08f3",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },

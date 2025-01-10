@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.core_python.core_python_examples &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -86,31 +86,31 @@
   <h1>Source code for emat.model.core_python.core_python_examples</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="k">class</span> <span class="nc">Dummy</span><span class="p">():</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dummy</span><span class="p">():</span>
 
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;nothing to do here&#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">calc_pm1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_pm1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sum_exp_vars</span><span class="p">(</span><span class="n">exp_vars</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">calc_pm2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_pm2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sum_exp_vars</span><span class="p">(</span><span class="n">exp_vars</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
 
-    <span class="k">def</span> <span class="nf">calc_pm10</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_pm10</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sum_exp_vars</span><span class="p">(</span><span class="n">exp_vars</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
     
-    <span class="k">def</span> <span class="nf">calc_pm100</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_pm100</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exp_vars</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sum_exp_vars</span><span class="p">(</span><span class="n">exp_vars</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>    
     
-    <span class="k">def</span> <span class="nf">__sum_exp_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ev</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__sum_exp_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ev</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">ev</span><span class="p">[</span><span class="s1">&#39;exp_var 1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ev</span><span class="p">[</span><span class="s1">&#39;exp_var 2&#39;</span><span class="p">]</span>
         
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">pm_1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pm1</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
             <span class="n">pm_2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_pm2</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
@@ -120,7 +120,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">NoisyDummy</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">NoisyDummy</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">lever1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lever1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">lever2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lever2&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">uncertain1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertain1&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -159,7 +159,7 @@
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;pm_1&#39;</span><span class="p">:</span><span class="n">pm_1</span><span class="p">,</span> <span class="s1">&#39;pm_2&#39;</span><span class="p">:</span> <span class="n">pm_2</span><span class="p">,</span> <span class="s1">&#39;pm_3&#39;</span><span class="p">:</span> <span class="n">pm_3</span><span class="p">,</span> <span class="s1">&#39;pm_4&#39;</span><span class="p">:</span><span class="n">pm_4</span><span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">pmt</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">fv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s1">&#39;end&#39;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pmt</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">nper</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">fv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s1">&#39;end&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the payment against loan principal plus interest.</span>
 
@@ -212,7 +212,7 @@
                     <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
                     <span class="s1">&#39;finish&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">_convert_when</span><span class="p">(</span><span class="n">when</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_convert_when</span><span class="p">(</span><span class="n">when</span><span class="p">):</span>
         <span class="c1"># Test to see if when has already been converted to ndarray</span>
         <span class="c1"># This will happen if one function calls another, for example ppmt</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
@@ -232,7 +232,7 @@
 
 <div class="viewcode-block" id="Road_Capacity_Investment">
 <a class="viewcode-back" href="../../../../source/emat.examples/RoadTest/road_test_yaml.html#emat.model.core_python.core_python_examples.Road_Capacity_Investment">[docs]</a>
-<span class="k">def</span> <span class="nf">Road_Capacity_Investment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Road_Capacity_Investment</span><span class="p">(</span>
         <span class="c1"># constant</span>
         <span class="n">free_flow_time</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
         <span class="n">initial_capacity</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
@@ -365,18 +365,18 @@
 
 
 
-<span class="k">def</span> <span class="nf">_Road_Capacity_Investment_CmdLine</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_Road_Capacity_Investment_CmdLine</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a demo for calling a core model function on the command line.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">argparse</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">warnings</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">warnings</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--levers&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;levers.yml&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Levers Yaml File&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--uncs&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;uncs.yml&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Uncertainties Yaml File&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-random-crashes&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;disable random crashes&#39;</span><span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-    <span class="kn">import</span> <span class="nn">logging</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;emat.RoadTest&#39;</span><span class="p">)</span>
     <span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="s2">&quot;emat-road-test.log&quot;</span><span class="p">)</span>
     <span class="n">file_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -393,7 +393,7 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span>
 
-    <span class="kn">import</span> <span class="nn">yaml</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">levers</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">levers</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">levers</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>

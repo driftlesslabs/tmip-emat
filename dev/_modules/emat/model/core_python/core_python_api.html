@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.core_python.core_python_api &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.core_python.core_python_api &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -85,21 +85,21 @@
              
   <h1>Source code for emat.model.core_python.core_python_api</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span>
-<span class="kn">from</span> <span class="nn">...workbench.em_framework</span> <span class="kn">import</span> <span class="n">Model</span> <span class="k">as</span> <span class="n">WorkbenchModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...workbench.em_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">Model</span> <span class="k">as</span> <span class="n">WorkbenchModel</span>
 
-<span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">...database.database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">...model.core_model</span> <span class="kn">import</span> <span class="n">AbstractCoreModel</span>
-<span class="kn">from</span> <span class="nn">...model.core_python.core_python_examples</span> <span class="kn">import</span> <span class="n">Dummy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...database.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...model.core_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractCoreModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...model.core_python.core_python_examples</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dummy</span>
 
-<span class="kn">from</span> <span class="nn">...util.docstrings</span> <span class="kn">import</span> <span class="n">copydoc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.docstrings</span><span class="w"> </span><span class="kn">import</span> <span class="n">copydoc</span>
 
 
 <span class="c1"># def filter_dict(dict_to_filter, thing_with_kwargs):</span>
@@ -112,7 +112,7 @@
 
 <div class="viewcode-block" id="PythonCoreModel">
 <a class="viewcode-back" href="../../../../source/emat.models/python_based.html#emat.model.PythonCoreModel">[docs]</a>
-<span class="k">class</span> <span class="nc">PythonCoreModel</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="p">,</span> <span class="n">WorkbenchModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PythonCoreModel</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="p">,</span> <span class="n">WorkbenchModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An EMAT interface for a core model that is a Python function.</span>
 
@@ -153,7 +153,7 @@
 
     <span class="n">xl_di</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">function</span><span class="p">:</span><span class="n">Callable</span><span class="p">,</span>
                  <span class="n">configuration</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Mapping</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">scope</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -186,13 +186,13 @@
         <span class="c1"># If no archive path is given, a temporary directory is created.</span>
         <span class="c1"># All archive files will be lost when this CoreDummy is deleted.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">tempfile</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_temp_archive</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_temp_archive</span><span class="o">.</span><span class="n">name</span>
 
         <span class="n">WorkbenchModel</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_c_list</span><span class="p">):</span>
             <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">_c_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> constants&quot;</span><span class="p">)</span>
@@ -206,11 +206,11 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;emat.PythonCoreModel &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;</span><span class="si">{</span><span class="n">metamodel_tag</span><span class="si">}</span><span class="s1"> with </span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">setup</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xl_di</span> <span class="o">=</span> <span class="n">params</span>
     
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">get_experiment_archive_path</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">makedirs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_experiment_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">makedirs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; Path is defined with scope name and experiment id &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -228,15 +228,15 @@
         <span class="k">return</span> <span class="n">mod_results_path</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xl_di</span><span class="p">)</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">post_process</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Not used for PythonCoreModel objects.&quot;&quot;&quot;</span>
     
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">load_measures</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">measure_names</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
@@ -258,7 +258,7 @@
         <span class="k">return</span> <span class="n">pm_dict</span>
 
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">archive</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;archive only records experiment values&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_results_path</span><span class="p">)</span>
@@ -269,7 +269,7 @@
 
 <div class="viewcode-block" id="PythonCoreModel.run_experiment">
 <a class="viewcode-back" href="../../../../source/emat.models/python_based.html#emat.model.PythonCoreModel.run_experiment">[docs]</a>
-    <span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Running a single instantiated model experiment.</span>
 
@@ -286,7 +286,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcomes_output</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pass through getattr to the function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

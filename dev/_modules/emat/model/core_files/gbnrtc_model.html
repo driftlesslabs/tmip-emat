@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.core_files.gbnrtc_model &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.core_files.gbnrtc_model &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -86,32 +86,32 @@
   <h1>Source code for emat.model.core_files.gbnrtc_model</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">copy</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">...database.database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">.core_files</span> <span class="kn">import</span> <span class="n">FilesCoreModel</span>
-<span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="n">TableParser</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">iloc</span><span class="p">,</span> <span class="n">loc_sum</span>
-<span class="kn">from</span> <span class="nn">...util.docstrings</span> <span class="kn">import</span> <span class="n">copydoc</span>
-<span class="kn">from</span> <span class="nn">.core_files</span> <span class="kn">import</span> <span class="n">copy_model_outputs_1</span><span class="p">,</span> <span class="n">copy_model_outputs_ext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shutil</span><span class="w"> </span><span class="kn">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...database.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.core_files</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilesCoreModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">TableParser</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">iloc</span><span class="p">,</span> <span class="n">loc_sum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.docstrings</span><span class="w"> </span><span class="kn">import</span> <span class="n">copydoc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.core_files</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy_model_outputs_1</span><span class="p">,</span> <span class="n">copy_model_outputs_ext</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">emat.model.core_files.caliper</span> <span class="k">as</span> <span class="nn">cp</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">emat.model.core_files.caliper</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">cp</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="kn">from</span> <span class="nn">...util.loggers</span> <span class="kn">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_module_logger</span>
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="GBNRTCModel">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel">[docs]</a>
-<span class="k">class</span> <span class="nc">GBNRTCModel</span><span class="p">(</span><span class="n">FilesCoreModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GBNRTCModel</span><span class="p">(</span><span class="n">FilesCoreModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup connections and paths to GBNRTC core model</span>
 
@@ -143,7 +143,7 @@
 
     <span class="n">tc</span> <span class="o">=</span> <span class="kc">None</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">configuration</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Mapping</span><span class="p">],</span>
                  <span class="n">scope</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
                  <span class="n">safe</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -177,7 +177,7 @@
 
 <div class="viewcode-block" id="GBNRTCModel.start_transcad">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.start_transcad">[docs]</a>
-    <span class="k">def</span> <span class="nf">start_transcad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_transcad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Launch TransCAD and call methods to reset scenario</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -200,7 +200,7 @@
     
 <div class="viewcode-block" id="GBNRTCModel.setup">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.setup">[docs]</a>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Configure the core model with the experiment variable values</span>
 
@@ -239,7 +239,7 @@
           
 <div class="viewcode-block" id="GBNRTCModel.run">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Launches TransCAD and runs the model</span>
 
@@ -260,7 +260,7 @@
         
 <div class="viewcode-block" id="GBNRTCModel.post_process">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.post_process">[docs]</a>
-    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
                      <span class="n">measure_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
                      <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -314,7 +314,7 @@
     
 <div class="viewcode-block" id="GBNRTCModel.archive">
 <a class="viewcode-back" href="../../../../source/emat.models/gbnrtc.html#emat.model.GBNRTCModel.archive">[docs]</a>
-    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Copies TransCAD settings, outputs and common input files</span>
 
@@ -401,7 +401,7 @@
     <span class="c1">#     Experiment variable setting methods</span>
     <span class="c1"># =============================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__set_simple_evar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span>       
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_simple_evar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span>       
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; call TransCAD macro and return variable to completed list&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="s2">&quot;G30 File Close All&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">)</span>  
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="n">macro</span><span class="p">,</span> 
@@ -414,7 +414,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">evar</span><span class="p">]</span>
 
     
-    <span class="k">def</span> <span class="nf">__set_bailey_transit_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_bailey_transit_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; call TransCAD macro and return both strategies to completed list&#39;&#39;&#39;</span>
         <span class="c1"># bailey transit and micro mobility strategies are interdependent</span>
         <span class="n">tserv</span> <span class="o">=</span> <span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Bailey Transit Service&#39;</span><span class="p">]</span>
@@ -456,7 +456,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;Bailey Transit Service&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey Mobility Hubs&#39;</span><span class="p">,</span> <span class="s1">&#39;Bailey Micro-Mobility&#39;</span><span class="p">]</span>
         
     
-    <span class="k">def</span> <span class="nf">__set_kenslrt_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_kenslrt_strategy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">evar</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">):</span> 
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; call TransCAD macro and return both strategies to completed list&#39;&#39;&#39;</span>
         <span class="c1"># kensington and lrt strategy are interdependent</span>
         <span class="n">kens</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Kensington Decommissioning&#39;</span><span class="p">])</span>
@@ -483,7 +483,7 @@
     <span class="c1">#   Performance measure processing methods</span>
     <span class="c1"># =============================================================================</span>
     
-    <span class="k">def</span> <span class="nf">__pp_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">,</span> <span class="n">out_path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__pp_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">,</span> <span class="n">out_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;call TransCAD macro with the path argument&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="s2">&quot;G30 File Close All&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exp_param_ui</span><span class="p">)</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">RunMacro</span><span class="p">(</span><span class="n">macro</span><span class="p">,</span> 
@@ -491,7 +491,7 @@
                          <span class="n">out_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__PM_BY_TRANSCAD_MACRO</span><span class="p">[</span><span class="n">macro</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__pp_path_kens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">,</span> <span class="n">out_path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__pp_path_kens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">,</span> <span class="n">exp_var</span><span class="p">,</span> <span class="n">out_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;call TransCAD macro with path and kensington arguments&#39;&#39;&#39;</span>
         <span class="n">kens</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">exp_var</span><span class="p">[</span><span class="s1">&#39;Kensington Decommissioning&#39;</span><span class="p">])</span>
                 

@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "988ea7ca",
+   "id": "833af165",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -15,7 +15,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "d5015109",
+   "id": "b8faafa2",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -25,7 +25,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "652b2684",
+   "id": "2c45f5fa",
    "metadata": {},
    "source": [
     "# Experimental Designs"
@@ -33,7 +33,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "288a1d08",
+   "id": "369f00ff",
    "metadata": {},
    "source": [
     "A fundamental part of TMIP-EMAT is the development of a \"design of experiments\"\n",
@@ -49,7 +49,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2800cb10",
+   "id": "c76d815e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -59,7 +59,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "c7a4b921",
+   "id": "df549f8a",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -69,7 +69,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "01cdf2d0",
+   "id": "6cbe67e9",
    "metadata": {},
    "source": [
     "## Univariate Sensitivity Tests"
@@ -77,7 +77,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "47a0cc80",
+   "id": "a56167bb",
    "metadata": {},
    "source": [
     "One of the simplest experimental designs, and one used often in practice for \n",
@@ -100,7 +100,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e233ac82",
+   "id": "725aed0a",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -111,7 +111,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "53d47dc0",
+   "id": "9c03b60c",
    "metadata": {},
    "source": [
     "The output of this function is an `emat.ExperimentalDesign`, which is a subclass of \n",
@@ -126,7 +126,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ae780e54",
+   "id": "c0486fe4",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -136,7 +136,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "bfa1a42e",
+   "id": "37dc1d6d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -146,7 +146,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "92bee076",
+   "id": "b512db98",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -155,7 +155,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "ec42a955",
+   "id": "58b45b5b",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -165,7 +165,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b1d3b68e",
+   "id": "74a8c7c2",
    "metadata": {},
    "source": [
     "## Efficient Designs"
@@ -173,7 +173,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cd5d5276",
+   "id": "1a130ac2",
    "metadata": {},
    "source": [
     "The univariate tests, while useful for model debugging and testing, are not the best choice for exploratory modeling, where we want to consider changing many input factors at once. To support multivariate exploratation, TMIP-EMAT includes a design_experiments function that offers several different multivariate samplers."
@@ -182,7 +182,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7a207714",
+   "id": "df36f28b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -191,7 +191,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a2cf5c50",
+   "id": "d23cbb27",
    "metadata": {},
    "source": [
     "The default multivariate sampler is a basic Latin Hypercube sampler. Meta-models for deterministic simulation experiments, such as a TDM, are best supported by a “space filling” design of experiments, such as Latin Hypercube draws (Sacks, Welch, Mitchell, & Wynn, 1989). \n",
@@ -202,7 +202,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6729be4b",
+   "id": "88084705",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -218,7 +218,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "05898335",
+   "id": "d23b4f06",
    "metadata": {},
    "source": [
     "This ensures better coverage of the entire input range than making four random draws from the full space, which could easily result in a cluster of observations in one part of the space and large void elsewhere. \n",
@@ -231,7 +231,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "57e20abf",
+   "id": "cf3fd377",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -246,7 +246,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "16128f71",
+   "id": "d6f8d681",
    "metadata": {},
    "source": [
     "The Latin Hypercube design of experiments is advantageous over a factorial or grid-based design, as every experimental observation can provide useful information, even when some input factors are potentially unimportant or spurious. \n",
@@ -257,7 +257,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "13baff92",
+   "id": "9194ef54",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -275,7 +275,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "81b7e1dd",
+   "id": "36f79517",
    "metadata": {},
    "source": [
     "If it turns out that the \"beta\" input is not particularly important for some model outputs,\n",
@@ -286,7 +286,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "81d71067",
+   "id": "e739c357",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -301,7 +301,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3f6c91fe",
+   "id": "bd1d877b",
    "metadata": {},
    "source": [
     "Essentially only four unique experiments remain under the full factorial design,\n",
@@ -310,7 +310,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "17db82fb",
+   "id": "00d95353",
    "metadata": {},
    "source": [
     "As for the sensitivity tests, the return type for the `design_experiments` function is `emat.ExperimentalDesign`.\n",
@@ -321,7 +321,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b90c3bcf",
+   "id": "d29866ab",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -330,7 +330,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "ba35f587",
+   "id": "cfdc870a",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -340,7 +340,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "31b17062",
+   "id": "1eb5d2fa",
    "metadata": {},
    "source": [
     "In addition to the default Latin Hypercube sampler, TMIP-EMAT also includes several other samplers,\n",
@@ -358,7 +358,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "3a6c93c3",
+   "id": "acd29efd",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -368,7 +368,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "508deaac",
+   "id": "8c05992e",
    "metadata": {},
    "source": [
     "## Reference Designs"
@@ -376,7 +376,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "80b66ae9",
+   "id": "95c7f841",
    "metadata": {},
    "source": [
     "An additional convenience tool is included in TMIP-EMAT to create a \"reference\" design, which contains only a single experiment that has every input set at the default value.  Although this one experiment is also included in the univariate sensitivity test design, an analyst may not need or want to run that full design. Having the reference case available can be helpful to add context to some exploratory visualizations.  "
@@ -385,7 +385,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d7e60338",
+   "id": "34bf3a53",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -395,7 +395,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "c28a32db",
+   "id": "685e4b2f",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },

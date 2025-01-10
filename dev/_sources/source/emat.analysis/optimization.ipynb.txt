@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e7a0280e",
+   "id": "0a1aec6c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b769ad50",
+   "id": "95d49319",
    "metadata": {},
    "source": [
     "# Optimization Tools"
@@ -21,7 +21,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a339402b",
+   "id": "d7e4fb46",
    "metadata": {},
    "source": [
     "Typically, transportation policy planning models will be used to\n",
@@ -41,7 +41,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "e244fa3a",
+   "id": "a5887c86",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -51,7 +51,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c6d4dd2b",
+   "id": "f287c658",
    "metadata": {},
    "source": [
     "## Multi-Objective Optimization"
@@ -59,7 +59,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "218e0aa2",
+   "id": "bee967e2",
    "metadata": {},
    "source": [
     "With exploratory modeling, optimization is also often undertaken as a \n",
@@ -74,7 +74,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "88a4a263",
+   "id": "48a8f58e",
    "metadata": {},
    "source": [
     "One approach to managing a multi-objective optimization problem is to distill it \n",
@@ -104,7 +104,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "025f0b15",
+   "id": "cf69d8d3",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -114,7 +114,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "da4e0a0f",
+   "id": "6adeff2d",
    "metadata": {},
    "source": [
     "## Robust Optimization"
@@ -122,7 +122,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "62f5d169",
+   "id": "18d95654",
    "metadata": {},
    "source": [
     "Robust optimization is a variant of the more traditional optimization\n",
@@ -141,7 +141,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f0a4a92a",
+   "id": "6a411041",
    "metadata": {
     "nbsphinx": "hidden"
    },
@@ -178,7 +178,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "4359eb6f",
+   "id": "1ba932b2",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -188,7 +188,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2204b7b7",
+   "id": "43883c30",
    "metadata": {},
    "source": [
     "In a naive optimization approach, if we want to minimize the performance\n",
@@ -231,7 +231,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fe485968",
+   "id": "c9a844cf",
    "metadata": {},
    "source": [
     "### Robustness Functions"
@@ -239,7 +239,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "440d21db",
+   "id": "888773f6",
    "metadata": {},
    "source": [
     "To perform robust optimization in EMAT, we need a core model (or meta-model)\n",
@@ -261,7 +261,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ae69c0d0",
+   "id": "d4dd4cb1",
    "metadata": {
     "nbsphinx": "hidden"
    },
@@ -324,7 +324,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "9204ce0d",
+   "id": "6fe82d90",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -334,7 +334,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4e0c7748",
+   "id": "14a97513",
    "metadata": {},
    "source": [
     "The \"maximum performance measure result\" robustness function is a very\n",
@@ -362,7 +362,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "111a36c4",
+   "id": "9590124a",
    "metadata": {},
    "source": [
     "# Mechanics of Using Optimization"
@@ -370,7 +370,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "5c31a552",
+   "id": "b0fe6096",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -380,7 +380,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "477d0935",
+   "id": "54636f47",
    "metadata": {},
    "source": [
     "## Policy Optimization: Search over Levers"
@@ -388,7 +388,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "1d68ae43",
+   "id": "f8bcab9c",
    "metadata": {},
    "source": [
     "The simplest optimization tool available for TMIP-EMAT users is \n",
@@ -409,7 +409,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a1816a36",
+   "id": "1bd707ef",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -419,7 +419,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "02d78916",
+   "id": "c320ddc8",
    "metadata": {},
    "source": [
     "The scope defined for a model in TMIP-EMAT will already provide\n",
@@ -436,7 +436,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "959c0611",
+   "id": "44a9ae6e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -445,7 +445,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2008ab61",
+   "id": "c08937e8",
    "metadata": {},
    "source": [
     "To conduct an optimization search over levers, we'll use the \n",
@@ -461,7 +461,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4a653aa7",
+   "id": "c99019fc",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -475,7 +475,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "222b698e",
+   "id": "e40095d6",
    "metadata": {},
    "source": [
     "The `optimize` method returns an `OptimizationResult` object, \n",
@@ -488,7 +488,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f6afc61a",
+   "id": "02c0f75c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -498,7 +498,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4af9b707",
+   "id": "f6ae9052",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -507,7 +507,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "63b87db6",
+   "id": "79957d99",
    "metadata": {},
    "source": [
     "We can visualize the set of solutions using a\n",
@@ -538,7 +538,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "aa0e8127",
+   "id": "86917d04",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -548,7 +548,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5e93e58a",
+   "id": "6c4c6107",
    "metadata": {},
    "source": [
     "As noted above, nearly all but not exactly all of the identified Pareto optimal\n",
@@ -561,7 +561,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2cf05a2c",
+   "id": "422fd9e8",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -570,7 +570,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4af00649",
+   "id": "ccc2ff76",
    "metadata": {},
    "source": [
     "The first row in this table shows a particular edge case: when the capacity expansion is\n",
@@ -586,7 +586,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d1628dc7",
+   "id": "f9fc1b71",
    "metadata": {},
    "source": [
     "Lastly, a note on the interpretation of the visualization of parallel coordinates\n",
@@ -609,7 +609,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "696baeba",
+   "id": "e9deba9b",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -619,7 +619,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e00d68aa",
+   "id": "2cf64e1e",
    "metadata": {},
    "source": [
     "## Worst Case Discovery: Search over Uncertainties"
@@ -627,7 +627,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "887e7286",
+   "id": "88dd7b6b",
    "metadata": {},
    "source": [
     "We can apply the same multiobjective optimization tool in reverse to \n",
@@ -644,7 +644,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "be5a0677",
+   "id": "b3ab9a30",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -666,7 +666,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "bc05526e",
+   "id": "ddcacf18",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -675,7 +675,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "90f5f758",
+   "id": "c1ebb12c",
    "metadata": {},
    "source": [
     "## Using Robust Optimization"
@@ -683,7 +683,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a9f10ae9",
+   "id": "58e0dcad",
    "metadata": {},
    "source": [
     "As discussed above, implementing robust optimization requires the\n",
@@ -726,7 +726,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a96d9a90",
+   "id": "206ef942",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -742,7 +742,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "94c56ada",
+   "id": "5ecaaa5b",
    "metadata": {},
    "source": [
     "As suggested earlier, this measure might be too sensitive to outliers\n",
@@ -755,7 +755,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c4d410a8",
+   "id": "8a967b9f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -769,7 +769,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d8437d92",
+   "id": "e64ad7fb",
    "metadata": {},
    "source": [
     "Or we can adopt an intermediate approach, focusing on the 5th percentile\n",
@@ -787,7 +787,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d5bf4229",
+   "id": "9c2a0df5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -803,7 +803,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "bed15de0",
+   "id": "34f5fbdd",
    "metadata": {},
    "source": [
     "We can also capture robustness measures that are not statistical versions\n",
@@ -821,7 +821,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "381ddfae",
+   "id": "403d29be",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -837,7 +837,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8b97b63c",
+   "id": "1d2870ed",
    "metadata": {},
    "source": [
     "We can of course also create robust measures based on other \n",
@@ -851,7 +851,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2e62ca88",
+   "id": "f469becc",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -865,7 +865,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "32fb156a",
+   "id": "97bfd079",
    "metadata": {},
    "source": [
     "We may also be interested in finding policies that will maximize the expected time savings.  \n",
@@ -878,7 +878,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ff39c534",
+   "id": "346e87dc",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -893,7 +893,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c547edd6",
+   "id": "19425606",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -903,7 +903,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4ca1ca4e",
+   "id": "ba2ad170",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -926,7 +926,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "29e163c4",
+   "id": "45b5201e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -935,7 +935,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "1ce8d23c",
+   "id": "ffd7d539",
    "metadata": {},
    "source": [
     "### Constraints\n",
@@ -970,7 +970,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b2992b29",
+   "id": "1933bb8c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -979,7 +979,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "523c321b",
+   "id": "84747a3c",
    "metadata": {},
    "source": [
     "Each `Constraint` needs to have a unique name\n",
@@ -1001,7 +1001,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "505c73c2",
+   "id": "e0401b96",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1020,7 +1020,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0c5d9563",
+   "id": "cf903ebf",
    "metadata": {},
    "source": [
     "It is also possible to impose constraints based on a combination \n",
@@ -1038,7 +1038,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "0e8c57be",
+   "id": "0c05c152",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1059,7 +1059,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "381956db",
+   "id": "b89dadfa",
    "metadata": {},
    "source": [
     "The constraints are then passed to the `robust_optimize` method in addition to the \n",
@@ -1069,7 +1069,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7ea1f7e4",
+   "id": "c92137f4",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -1098,7 +1098,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9e6ce296",
+   "id": "f3db3725",
    "metadata": {},
    "outputs": [],
    "source": [

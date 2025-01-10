@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.workbench.analysis.prim &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.workbench.analysis.prim &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -99,26 +99,26 @@
 <span class="sd">the jupyter notebook.</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">altair</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">alt</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">alt</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="c1"># warnings.warn((&quot;altair based interactive &quot;</span>
     <span class="c1">#                &quot;inspection not available&quot;), ImportWarning)</span>
 
-<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">EMAError</span><span class="p">,</span> <span class="n">temporary_filter</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">get_module_logger</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">scenario_discovery_util</span> <span class="k">as</span> <span class="n">sdutil</span>
-<span class="kn">from</span> <span class="nn">.prim_util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">PrimException</span><span class="p">,</span> <span class="n">CurEntry</span><span class="p">,</span> <span class="n">PRIMObjectiveFunctions</span><span class="p">,</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">EMAError</span><span class="p">,</span> <span class="n">temporary_filter</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">get_module_logger</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">scenario_discovery_util</span> <span class="k">as</span> <span class="n">sdutil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.prim_util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">PrimException</span><span class="p">,</span> <span class="n">CurEntry</span><span class="p">,</span> <span class="n">PRIMObjectiveFunctions</span><span class="p">,</span>
                         <span class="n">NotSeen</span><span class="p">,</span> <span class="n">is_pareto_efficient</span><span class="p">,</span>
                         <span class="n">get_quantile</span><span class="p">,</span> <span class="n">rotate_subset</span><span class="p">,</span> <span class="n">calculate_qp</span><span class="p">,</span>
                         <span class="n">determine_dimres</span><span class="p">,</span> <span class="n">is_significant</span><span class="p">)</span>
@@ -138,7 +138,7 @@
 <span class="n">PRECISION</span> <span class="o">=</span> <span class="s1">&#39;.2f&#39;</span>
 
 
-<span class="k">def</span> <span class="nf">pca_preprocess</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subsets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pca_preprocess</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subsets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="nb">set</span><span class="p">()):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;perform PCA to preprocess experiments before running PRIM</span>
 
 <span class="sd">    Pre-process the data by performing a pca based rotation on it.</span>
@@ -235,7 +235,7 @@
     <span class="k">return</span> <span class="n">rotated_experiments</span><span class="p">,</span> <span class="n">rotation_matrix</span>
 
 
-<span class="k">def</span> <span class="nf">run_constrained_prim</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">issignificant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_constrained_prim</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">issignificant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39; Run PRIM repeatedly while constraining the maximum number of dimensions</span>
 <span class="sd">    available in x</span>
@@ -340,7 +340,7 @@
     <span class="k">return</span> <span class="n">box</span>
 
 
-<span class="k">def</span> <span class="nf">setup_prim</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">classify</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">incl_unc</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_prim</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">classify</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">incl_unc</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function for setting up the prim algorithm</span>
 
 <span class="sd">    Parameters</span>
@@ -377,7 +377,7 @@
     <span class="k">return</span> <span class="n">Prim</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">PrimBox</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrimBox</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A class that holds information for a specific box</span>
 
 <span class="sd">    Attributes</span>
@@ -411,7 +411,7 @@
 
     <span class="n">_frozen</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prim</span><span class="p">,</span> <span class="n">box_lims</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prim</span><span class="p">,</span> <span class="n">box_lims</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;init</span>
 
 <span class="sd">        Parameters</span>
@@ -447,7 +447,7 @@
         <span class="c1"># indices van data in box</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">box_lims</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        used here to give box_lim same behaviour as coverage, density,</span>
 <span class="sd">        mean, res_dim, and mass. That is, it will return the box lim</span>
@@ -461,7 +461,7 @@
 
 <div class="viewcode-block" id="PrimBox.inspect">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.inspect">[docs]</a>
-    <span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Write the stats and box limits of the user specified box to</span>
 <span class="sd">        standard out. if i is not provided, the last box will be</span>
 <span class="sd">        printed</span>
@@ -497,7 +497,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;style must be one of graph or table&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_inspect_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">uncs</span><span class="p">,</span> <span class="n">qp_values</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inspect_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">uncs</span><span class="p">,</span> <span class="n">qp_values</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Helper function for visualizing box statistics in</span>
 <span class="sd">        table form&#39;&#39;&#39;</span>
         <span class="c1"># make the descriptive statistics for the box</span>
@@ -519,7 +519,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">box_lim</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_inspect_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">uncs</span><span class="p">,</span> <span class="n">qp_values</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inspect_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">uncs</span><span class="p">,</span> <span class="n">qp_values</span><span class="p">,</span>
                        <span class="n">ticklabel_formatter</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">,</span>
                        <span class="n">boxlim_formatter</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{: .2g}</span><span class="s2">&quot;</span><span class="p">,</span>
                        <span class="n">table_formatter</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{:.3g}</span><span class="s1">&#39;</span><span class="p">):</span>
@@ -534,7 +534,7 @@
                                <span class="n">boxlim_formatter</span><span class="o">=</span><span class="n">boxlim_formatter</span><span class="p">,</span>
                                <span class="n">table_formatter</span><span class="o">=</span><span class="n">table_formatter</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">inspect_tradeoff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inspect_tradeoff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO::</span>
         <span class="c1"># make legend with res_dim color code a selector as well?</span>
         <span class="c1"># https://medium.com/dataexplorations/focus-generating-an-interactive-legend-in-altair-9a92b5714c55</span>
@@ -686,7 +686,7 @@
 
 <div class="viewcode-block" id="PrimBox.resample">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.resample">[docs]</a>
-    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Calculate resample statistics for candidate box i</span>
 
 <span class="sd">        Parameters</span>
@@ -750,7 +750,7 @@
                                   <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        select an entry from the peeling and pasting trajectory and</span>
 <span class="sd">        update the prim box to this selected box.</span>
@@ -777,7 +777,7 @@
 
 <div class="viewcode-block" id="PrimBox.drop_restriction">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.drop_restriction">[docs]</a>
-    <span class="k">def</span> <span class="nf">drop_restriction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uncertainty</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drop_restriction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uncertainty</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Drop the restriction on the specified dimension for box i</span>
 
 <span class="sd">        Parameters</span>
@@ -806,7 +806,7 @@
 
 <div class="viewcode-block" id="PrimBox.update">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.update">[docs]</a>
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box_lims</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box_lims</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;update the box to the provided box limits.</span>
 
 <span class="sd">        Parameters</span>
@@ -846,14 +846,14 @@
 
 <div class="viewcode-block" id="PrimBox.show_ppt">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.show_ppt">[docs]</a>
-    <span class="k">def</span> <span class="nf">show_ppt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_ppt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;show the peeling and pasting trajectory in a figure&#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">sdutil</span><span class="o">.</span><span class="n">plot_ppt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">peeling_trajectory</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PrimBox.show_tradeoff">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.show_tradeoff">[docs]</a>
-    <span class="k">def</span> <span class="nf">show_tradeoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">):</span>  <span class="c1"># @UndefinedVariable</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_tradeoff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">):</span>  <span class="c1"># @UndefinedVariable</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Visualize the trade off between coverage and density. Color</span>
 <span class="sd">        is used to denote the number of restricted dimensions.</span>
 
@@ -871,7 +871,7 @@
 
 <div class="viewcode-block" id="PrimBox.show_pairs_scatter">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.show_pairs_scatter">[docs]</a>
-    <span class="k">def</span> <span class="nf">show_pairs_scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_pairs_scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; Make a pair wise scatter plot of all the restricted</span>
 <span class="sd">        dimensions with color denoting whether a given point is of</span>
 <span class="sd">        interest or not and the boxlims superimposed on top.</span>
@@ -904,13 +904,13 @@
 
 <div class="viewcode-block" id="PrimBox.write_ppt_to_stdout">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.PrimBox.write_ppt_to_stdout">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_ppt_to_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_ppt_to_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;write the peeling and pasting trajectory to stdout&#39;&#39;&#39;</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">peeling_trajectory</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_calculate_quasi_p</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">restricted_dims</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_quasi_p</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">restricted_dims</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;helper function for calculating quasi-p values as discussed</span>
 <span class="sd">        in Bryant and Lempert (2010). This is a one sided  binomial</span>
 <span class="sd">        test.</span>
@@ -948,7 +948,7 @@
         <span class="k">return</span> <span class="n">qp_values</span>
 
 
-<span class="k">class</span> <span class="nc">Prim</span><span class="p">(</span><span class="n">sdutil</span><span class="o">.</span><span class="n">OutputFormatterMixin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Prim</span><span class="p">(</span><span class="n">sdutil</span><span class="o">.</span><span class="n">OutputFormatterMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Patient rule induction algorithm</span>
 
 <span class="sd">    The implementation of Prim is tailored to interactive use in the</span>
@@ -995,7 +995,7 @@
 
     <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> points remaining, containing </span><span class="si">{1}</span><span class="s2"> cases of interest&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
                  <span class="n">obj_function</span><span class="o">=</span><span class="n">PRIMObjectiveFunctions</span><span class="o">.</span><span class="n">LENIENT1</span><span class="p">,</span>
                  <span class="n">peel_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">paste_alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">mass_min</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
                  <span class="n">threshold_type</span><span class="o">=</span><span class="n">ABOVE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">sdutil</span><span class="o">.</span><span class="n">RuleInductionType</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span>
@@ -1080,7 +1080,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_yi_remaining</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">boxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">box</span><span class="o">.</span><span class="n">box_lim</span> <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boxes</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">boxes</span><span class="p">:</span>
@@ -1088,14 +1088,14 @@
         <span class="k">return</span> <span class="n">boxes</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">stats</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;coverage&#39;</span><span class="p">,</span> <span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mass&#39;</span><span class="p">,</span> <span class="s1">&#39;res_dim&#39;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_boxes</span><span class="p">:</span>
             <span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">items</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">stats</span>
 
-    <span class="k">def</span> <span class="nf">find_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Execute one iteration of the PRIM algorithm. That is, find one</span>
 <span class="sd">        box, starting from the current state of Prim.&#39;&#39;&#39;</span>
         <span class="c1"># set the indices</span>
@@ -1156,7 +1156,7 @@
 
 <div class="viewcode-block" id="Prim.determine_coi">
 <a class="viewcode-back" href="../../../../source/emat.analysis/prim.html#emat.analysis.Prim.determine_coi">[docs]</a>
-    <span class="k">def</span> <span class="nf">determine_coi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">determine_coi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Given a set of indices on y, how many cases of interest are</span>
 <span class="sd">        there in this set.</span>
@@ -1190,7 +1190,7 @@
         <span class="k">return</span> <span class="n">coi</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_update_yi_remaining_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_yi_remaining_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        Update yi_remaining in light of the state of the boxes</span>
@@ -1204,7 +1204,7 @@
             <span class="n">logical</span><span class="p">[</span><span class="n">box</span><span class="o">.</span><span class="n">yi</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">yi_remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yi</span><span class="p">[</span><span class="n">logical</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_update_yi_remaining_guivarch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_yi_remaining_guivarch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        Update yi_remaining in light of the state of the boxes</span>
@@ -1218,7 +1218,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">yi_remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yi</span>
 
-    <span class="k">def</span> <span class="nf">_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        Executes the peeling phase of the PRIM algorithm. Delegates</span>
@@ -1278,7 +1278,7 @@
             <span class="c1"># else return received box</span>
             <span class="k">return</span> <span class="n">box</span>
 
-    <span class="k">def</span> <span class="nf">_real_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_real_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        returns two candidate new boxes, peel along upper and lower</span>
@@ -1324,7 +1324,7 @@
 
         <span class="k">return</span> <span class="n">peels</span>
 
-    <span class="k">def</span> <span class="nf">_discrete_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_discrete_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        returns two candidate new boxes, peel along upper and lower</span>
@@ -1394,7 +1394,7 @@
 
         <span class="k">return</span> <span class="n">peels</span>
 
-    <span class="k">def</span> <span class="nf">_categorical_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_categorical_peel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        returns candidate new boxes for each possible removal of a</span>
@@ -1445,7 +1445,7 @@
             <span class="c1"># no peels possible, return empty list</span>
             <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; Executes the pasting phase of the PRIM. Delegates pasting</span>
 <span class="sd">        to data type specific helper methods.&#39;&#39;&#39;</span>
 
@@ -1507,7 +1507,7 @@
             <span class="c1"># else return received box</span>
             <span class="k">return</span> <span class="n">box</span>
 
-    <span class="k">def</span> <span class="nf">_real_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">resdim</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_real_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">resdim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; returns two candidate new boxes, pasted along upper and</span>
 <span class="sd">        lower dimension</span>
 
@@ -1571,7 +1571,7 @@
 
         <span class="k">return</span> <span class="n">pastes</span>
 
-    <span class="k">def</span> <span class="nf">_categorical_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">resdim</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_categorical_paste</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">resdim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        Return a list of pastes, equal to the number of classes currently</span>
@@ -1616,7 +1616,7 @@
             <span class="c1"># no pastes possible, return empty list</span>
             <span class="k">return</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">_lenient1_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_lenient1_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        the default objective function used by prim, instead of the</span>
 <span class="sd">        original objective function, This function can cope with</span>
@@ -1661,7 +1661,7 @@
                         <span class="n">mean_old</span><span class="p">,</span> <span class="n">mean_new</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">obj</span>
 
-    <span class="k">def</span> <span class="nf">_lenient2_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_lenient2_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">        friedman and fisher 14.6</span>
@@ -1691,7 +1691,7 @@
 
         <span class="k">return</span> <span class="n">obj</span>
 
-    <span class="k">def</span> <span class="nf">_original_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_original_obj_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_old</span><span class="p">,</span> <span class="n">y_new</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39; The original objective function: the mean of the data</span>
 <span class="sd">        inside the box&#39;&#39;&#39;</span>
 
@@ -1700,14 +1700,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
-    <span class="k">def</span> <span class="nf">_assert_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">update_function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_assert_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">update_function</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">sdutil</span><span class="o">.</span><span class="n">RuleInductionType</span><span class="o">.</span><span class="n">BINARY</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">update_function</span> <span class="o">==</span> <span class="s1">&#39;guivarch&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="nf">_assert_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">dtypes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_assert_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">dtypes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        helper fucntion that checks whether none of the provided keys</span>
 <span class="sd">        has a dtype object as value.</span>

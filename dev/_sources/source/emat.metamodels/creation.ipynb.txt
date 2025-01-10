@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "raw",
-   "id": "b4693e53",
+   "id": "2d559c69",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -13,7 +13,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "283f9d89",
+   "id": "9bdeb599",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -24,7 +24,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "a7e2d0aa",
+   "id": "41390562",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -34,7 +34,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f56b0a5c",
+   "id": "23a98942",
    "metadata": {},
    "source": [
     "# Meta-Model Creation"
@@ -42,7 +42,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "51146071",
+   "id": "acd842a5",
    "metadata": {},
    "source": [
     "To demostrate the creation of a meta-model, we will use the Road Test example model\n",
@@ -53,7 +53,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1e7f2be0",
+   "id": "41463534",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -65,7 +65,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a55d285e",
+   "id": "486f6c5d",
    "metadata": {},
    "source": [
     "We can then create a meta-model automatically from these experiments."
@@ -74,7 +74,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a01c6a74",
+   "id": "cb934452",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -86,7 +86,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8c8a8d9f",
+   "id": "384f5bc7",
    "metadata": {},
    "source": [
     "If you are using the default meta-model regressor, as we are doing here, \n",
@@ -99,7 +99,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b24524fc",
+   "id": "8c63b2ff",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -109,7 +109,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "9e694ab3",
+   "id": "5db77250",
    "metadata": {},
    "source": [
     "We can apply the meta-model directly on a new design of experiments, and \n",
@@ -120,7 +120,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "48291c63",
+   "id": "a2c74bfd",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -130,7 +130,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "32cf0a7d",
+   "id": "cec4c86e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -141,7 +141,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "10e106ae",
+   "id": "94d53ad5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -151,7 +151,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5ef421c7",
+   "id": "28a0f1e2",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -161,7 +161,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6db15b1b",
+   "id": "3fa8599e",
    "metadata": {},
    "source": [
     "## Design Sizing\n",
@@ -171,7 +171,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "6d2234f8",
+   "id": "1a52726c",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -181,7 +181,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c22f715e",
+   "id": "82c9adc0",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -191,7 +191,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "bbb62963",
+   "id": "6b0a3c4b",
    "metadata": {},
    "source": [
     "Whether a design of experiments is sized with 10 experiments per input variable, or fewer, it remains important to conduct a (cross-)validation for all meta-modeled performance measures, to ensure that meta-models are performing well. The 10x approach is a \"rule of thumb\" and not a guarantee that enough experimental data will be generated to develop a high quality meta-model in any given circumstance. Indeed, the guidance from Loeppky et al. is not simply that 10x is enough, but rather that either (a) 10x will be sufficient or (b) the number of experiments that will actually be sufficient is at least an order of magnitude larger.\n",
@@ -201,7 +201,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "7118c78a",
+   "id": "2cb4a4d0",
    "metadata": {},
    "source": [
     "## Partial Metamodels"
@@ -209,7 +209,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "1faf710b",
+   "id": "5c1396dd",
    "metadata": {},
    "source": [
     "It may be desirable in some cases to construct a *partial* metamodel, covering only a subset of the performance measures.  This is likely to be particularly desirable if some of the performance measures are poorly fit by the meta-model as noted above, or if a large number of performance measures are included in the scope, but only a few are of particular interest for a given analysis. The time required for generating and using meta-models is linear in the number of performance measures included, so if you have 100 performance measures but you are only presently interested in 5, your meta-model can be created much faster if you only include the 5 performance measures.  It will also run much faster, but the run time for metamodels is so small anyhow, it's likely you won't notice.\n",
@@ -220,7 +220,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "962276f1",
+   "id": "3f2b88d6",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -242,7 +242,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4e14db46",
+   "id": "53058154",
    "metadata": {},
    "source": [
     "There is also an `exclude_measures` argument for the `create_metamodel` command, which will retain all of the scoped performance measures *except* the enumerated list.  This can be handy for dropping a few measures that are not working well, either because the data is bad in some way or if the measure isn't well fitted using the metamodel."
@@ -251,7 +251,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "43dffa1c",
+   "id": "af23b470",
    "metadata": {},
    "outputs": [],
    "source": [

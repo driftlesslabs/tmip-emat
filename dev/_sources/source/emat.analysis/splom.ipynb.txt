@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "59e1580e",
+   "id": "f7dc4770",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "92ed2e9e",
+   "id": "8bdf6e13",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -23,7 +23,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "2db504b9",
+   "id": "70fa9770",
    "metadata": {},
    "source": [
     "# Scatter Plot Matrix"
@@ -31,7 +31,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "561f2f57",
+   "id": "4ea6186e",
    "metadata": {},
    "source": [
     "Once a series of experiments has been conducted for a core model, it\n",
@@ -48,7 +48,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1fa885e6",
+   "id": "502fd782",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -60,7 +60,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6e3a3ad7",
+   "id": "24c24abb",
    "metadata": {},
    "source": [
     "Given this set of experimental results, we can display a scatter plot matrix\n",
@@ -72,7 +72,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "0de6cf22",
+   "id": "3b8e82d6",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -82,7 +82,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "44f86311",
+   "id": "d962c31b",
    "metadata": {},
    "source": [
     "The `display_experiments` function in the `emat.analysis` sub-package can \n",
@@ -95,7 +95,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2d223fea",
+   "id": "6679a504",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -105,7 +105,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "297faa09",
+   "id": "f695a49b",
    "metadata": {},
    "source": [
     "This function also offers the opportunity to identify only a particular \n",
@@ -122,7 +122,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d01d9aca",
+   "id": "cd8ffb79",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -135,7 +135,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ddd26231",
+   "id": "da1dbbeb",
    "metadata": {},
    "source": [
     "Reviewing these results can be instructive, not only for exploratory analysis\n",
@@ -151,7 +151,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "2cfc39be",
+   "id": "d99a422c",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -161,7 +161,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0344bd49",
+   "id": "22f25a26",
    "metadata": {},
    "source": [
     "## Contrasting Sets of Experiments\n",
@@ -180,7 +180,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a790d30c",
+   "id": "002768e7",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -191,7 +191,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b1da3165",
+   "id": "803e9e76",
    "metadata": {},
    "source": [
     "The `contrast_experiments` function in the `emat.analysis` sub-package can \n",
@@ -206,7 +206,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2a2f4bc6",
+   "id": "7f8d3dc5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -216,7 +216,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "51c12542",
+   "id": "23b3f2cd",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },

@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.meta_model &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -86,26 +86,26 @@
   <h1>Source code for emat.model.meta_model</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">..learn.base</span> <span class="kn">import</span> <span class="n">clone_or_construct</span>
-<span class="kn">from</span> <span class="nn">..learn.boosting</span> <span class="kn">import</span> <span class="n">LinearAndGaussian</span>
-<span class="kn">from</span> <span class="nn">..util.one_hot</span> <span class="kn">import</span> <span class="n">OneHotCatEncoder</span>
-<span class="kn">from</span> <span class="nn">..util.variance_threshold</span> <span class="kn">import</span> <span class="n">VarianceThreshold</span>
-<span class="kn">from</span> <span class="nn">..experiment.experimental_design</span> <span class="kn">import</span> <span class="n">batch_pick_new_experiments</span><span class="p">,</span> <span class="n">minimum_weighted_distance</span>
-<span class="kn">from</span> <span class="nn">..database.database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">ReadOnlyDatabaseError</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..learn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">clone_or_construct</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..learn.boosting</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearAndGaussian</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.one_hot</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneHotCatEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.variance_threshold</span><span class="w"> </span><span class="kn">import</span> <span class="n">VarianceThreshold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..experiment.experimental_design</span><span class="w"> </span><span class="kn">import</span> <span class="n">batch_pick_new_experiments</span><span class="p">,</span> <span class="n">minimum_weighted_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..database.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadOnlyDatabaseError</span>
 
-<span class="kn">from</span> <span class="nn">..util.loggers</span> <span class="kn">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_module_logger</span>
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="create_metamodel">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.create_metamodel">[docs]</a>
-<span class="k">def</span> <span class="nf">create_metamodel</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_metamodel</span><span class="p">(</span>
         <span class="n">scope</span><span class="p">,</span>
         <span class="n">experiments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -172,7 +172,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;creating metamodel from data&quot;</span><span class="p">)</span>
 
-    <span class="kn">from</span> <span class="nn">.core_python</span> <span class="kn">import</span> <span class="n">PythonCoreModel</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.core_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonCoreModel</span>
 
     <span class="k">if</span> <span class="n">experiments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -286,7 +286,7 @@
 
 <div class="viewcode-block" id="MetaModel">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel">[docs]</a>
-<span class="k">class</span> <span class="nc">MetaModel</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MetaModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A gaussian process regression-based meta-model.</span>
 
@@ -358,7 +358,7 @@
         <span class="s1">&#39;clip&#39;</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">))),</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">input_sample</span><span class="p">,</span>
             <span class="n">output_sample</span><span class="p">,</span>
@@ -401,7 +401,7 @@
                     <span class="k">continue</span>
                 <span class="k">if</span> <span class="s2">&quot;(&quot;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
                     <span class="n">t</span><span class="p">,</span> <span class="n">t_args</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="kn">import</span> <span class="nn">ast</span>
+                    <span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
                     <span class="n">t_args</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">t_args</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;()&quot;</span><span class="p">))</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -434,8 +434,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">suppress_converge_warnings</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">ConvergenceWarning</span>
-            <span class="kn">import</span> <span class="nn">warnings</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConvergenceWarning</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
             <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">ConvergenceWarning</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
@@ -443,12 +443,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">use_best_cv</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">..learn.model_selection</span> <span class="kn">import</span> <span class="n">take_best</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..learn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">take_best</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">regression</span> <span class="o">=</span> <span class="n">take_best</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MetaModel.preprocess_raw_input">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.preprocess_raw_input">[docs]</a>
-    <span class="k">def</span> <span class="nf">preprocess_raw_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_raw_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">to_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Preprocess raw data input.</span>
 
@@ -475,7 +475,7 @@
 
 <div class="viewcode-block" id="MetaModel.__call__">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate the meta-model.</span>
 
@@ -519,7 +519,7 @@
 
 <div class="viewcode-block" id="MetaModel.compute_std">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.compute_std">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_std</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_std</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate standard deviations of estimates generated by the meta-model.</span>
 
@@ -566,7 +566,7 @@
 
 <div class="viewcode-block" id="MetaModel.predict">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.predict">[docs]</a>
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">trend_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">residual_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">trend_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">residual_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate predictions using the meta-model.</span>
 
@@ -637,7 +637,7 @@
 
 <div class="viewcode-block" id="MetaModel.cross_val_scores">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.cross_val_scores">[docs]</a>
-    <span class="k">def</span> <span class="nf">cross_val_scores</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_val_scores</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">gpr_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -681,7 +681,7 @@
 
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_stratification</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">..learn.splits</span> <span class="kn">import</span> <span class="n">ExogenouslyStratifiedKFold</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">..learn.splits</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExogenouslyStratifiedKFold</span>
                 <span class="n">cv</span> <span class="o">=</span> <span class="n">ExogenouslyStratifiedKFold</span><span class="p">(</span><span class="n">exo_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_stratification</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">gpr_only</span><span class="p">:</span>
@@ -691,8 +691,8 @@
                 <span class="c1"># return regression.cross_val_scores(self.input_sample, residuals, cv=cv)</span>
 
             <span class="k">if</span> <span class="n">suppress_converge_warnings</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">ConvergenceWarning</span>
-                <span class="kn">import</span> <span class="nn">warnings</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConvergenceWarning</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
                 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
                     <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">ConvergenceWarning</span><span class="p">)</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regression</span><span class="o">.</span><span class="n">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -710,7 +710,7 @@
                 <span class="n">result</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">shortnames</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s1">&#39;styled&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">..util.styling</span> <span class="kn">import</span> <span class="n">cross_validation_styling</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..util.styling</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_validation_styling</span>
             <span class="k">return</span> <span class="n">cross_validation_styling</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">result</span></div>
@@ -718,7 +718,7 @@
 
 <div class="viewcode-block" id="MetaModel.cross_val_predicts">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.cross_val_predicts">[docs]</a>
-    <span class="k">def</span> <span class="nf">cross_val_predicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_val_predicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate cross validated predictions using this meta-model.</span>
 
@@ -738,7 +738,7 @@
 
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">in_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_input_columns</span><span class="p">)</span>
         <span class="n">out_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_sample</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled_outputs</span><span class="p">:</span>
@@ -749,7 +749,7 @@
 
 <div class="viewcode-block" id="MetaModel.get_length_scales">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.get_length_scales">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the length scales from the GPR kernels of this metamodel.</span>
 
@@ -775,7 +775,7 @@
 
 <div class="viewcode-block" id="MetaModel.mix_length_scales">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.mix_length_scales">[docs]</a>
-    <span class="k">def</span> <span class="nf">mix_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mix_length_scales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mix the length scales from the GPR kernels of this metamodel.</span>
 
@@ -820,7 +820,7 @@
 
 <div class="viewcode-block" id="MetaModel.pick_new_experiments">
 <a class="viewcode-back" href="../../../source/emat.metamodels/api.html#emat.MetaModel.pick_new_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">pick_new_experiments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pick_new_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">possible_experiments</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="p">,</span>
@@ -929,7 +929,7 @@
                 <span class="n">dimension_weights</span>
             <span class="p">)</span>
 
-            <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">possible_experiments</span><span class="p">[</span><span class="n">debug_x</span><span class="p">],</span> <span class="n">possible_experiments</span><span class="p">[</span><span class="n">debug_y</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">mwd</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">[</span><span class="n">debug_x</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_sample</span><span class="p">[</span><span class="n">debug_y</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
@@ -939,7 +939,7 @@
         <span class="k">return</span> <span class="n">design</span></div>
 
 
-    <span class="k">def</span> <span class="nf">heuristic_pick_experiment</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heuristic_pick_experiment</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">candidate_experiments</span><span class="p">,</span>
             <span class="n">poorness_of_fit</span><span class="p">,</span>
@@ -951,7 +951,7 @@
         <span class="n">candidate_wgt_value</span> <span class="o">=</span> <span class="n">candidate_raw_value</span> <span class="o">*</span> <span class="n">candidate_density</span>
         <span class="n">proposed_experiment</span> <span class="o">=</span> <span class="n">candidate_wgt_value</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
             <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
             <span class="n">axs</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
                 <span class="n">candidate_experiments</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
@@ -967,7 +967,7 @@
             <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">proposed_experiment</span>
 
-    <span class="k">def</span> <span class="nf">heuristic_batch_pick_experiment</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heuristic_batch_pick_experiment</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="p">,</span>
             <span class="n">candidate_experiments</span><span class="p">,</span>
@@ -1027,7 +1027,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">select_best_metamodeltype</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_best_metamodeltype</span><span class="p">(</span>
         <span class="n">params</span><span class="p">,</span>
         <span class="n">measures</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -1041,10 +1041,10 @@
         <span class="n">possible_types</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="s1">&#39;log1p&#39;</span><span class="p">,</span> <span class="s1">&#39;logit&#39;</span><span class="p">,</span> <span class="s1">&#39;exp&#39;</span><span class="p">}</span>
 
     <span class="k">if</span> <span class="n">regressor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">..learn.boosting</span> <span class="kn">import</span> <span class="n">LinearAndGaussian</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..learn.boosting</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearAndGaussian</span>
         <span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearAndGaussian</span>
 
-    <span class="k">def</span> <span class="nf">_metamodel_scores</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">filter_cols</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_metamodel_scores</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">filter_cols</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">possible_types</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filter_cols</span><span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">MetaModel</span><span class="p">(</span>
                 <span class="n">params</span><span class="p">,</span>

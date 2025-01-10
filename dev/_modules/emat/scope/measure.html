@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.scope.measure &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.scope.measure &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -86,14 +86,14 @@
   <h1>Source code for emat.scope.measure</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">..workbench</span> <span class="kn">import</span> <span class="n">ScalarOutcome</span>
-<span class="kn">from</span> <span class="nn">.names</span> <span class="kn">import</span> <span class="n">ShortnameMixin</span><span class="p">,</span> <span class="n">TaggableMixin</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarOutcome</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.names</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShortnameMixin</span><span class="p">,</span> <span class="n">TaggableMixin</span>
 
 <div class="viewcode-block" id="Measure">
 <a class="viewcode-back" href="../../../source/emat.scope/measures.html#emat.Measure">[docs]</a>
-<span class="k">class</span> <span class="nc">Measure</span><span class="p">(</span><span class="n">ScalarOutcome</span><span class="p">,</span> <span class="n">ShortnameMixin</span><span class="p">,</span> <span class="n">TaggableMixin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Measure</span><span class="p">(</span><span class="n">ScalarOutcome</span><span class="p">,</span> <span class="n">ShortnameMixin</span><span class="p">,</span> <span class="n">TaggableMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Measure represents an outcome measure of the model.</span>
 
@@ -170,7 +170,7 @@
 <span class="sd">            metamodel estimation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">name</span><span class="p">,</span>
             <span class="n">kind</span><span class="o">=</span><span class="n">ScalarOutcome</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
@@ -243,11 +243,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">meta</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_hash_it</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">..util.hasher</span> <span class="kn">import</span> <span class="n">hash_it</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_hash_it</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..util.hasher</span><span class="w"> </span><span class="kn">import</span> <span class="n">hash_it</span>
         <span class="k">return</span> <span class="n">hash_it</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span>
@@ -265,7 +265,7 @@
 
 <div class="viewcode-block" id="Measure.info">
 <a class="viewcode-back" href="../../../source/emat.scope/measures.html#emat.Measure.info">[docs]</a>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Print some information about this measure</span>
 
 <span class="sd">        Args:</span>
@@ -274,7 +274,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">return_string</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">io</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
             <span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">f</span> <span class="o">=</span> <span class="kc">None</span>

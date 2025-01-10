@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.learn.boosting &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.learn.boosting &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -85,17 +85,17 @@
              
   <h1>Source code for emat.learn.boosting</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
-<span class="kn">from</span> <span class="nn">.frameable</span> <span class="kn">import</span> <span class="n">FrameableMixin</span>
-<span class="kn">from</span> <span class="nn">.model_selection</span> <span class="kn">import</span> <span class="n">CrossValMixin</span>
-<span class="kn">from</span> <span class="nn">.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils.metaestimators</span> <span class="kn">import</span> <span class="n">_BaseComposition</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">Bunch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.frameable</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrameableMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrossValMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.multioutput</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils.metaestimators</span><span class="w"> </span><span class="kn">import</span> <span class="n">_BaseComposition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bunch</span>
 
-<span class="k">class</span> <span class="nc">BoostedRegressor</span><span class="p">(</span><span class="n">_BaseComposition</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">FrameableMixin</span><span class="p">,</span> <span class="n">CrossValMixin</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BoostedRegressor</span><span class="p">(</span><span class="n">_BaseComposition</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">FrameableMixin</span><span class="p">,</span> <span class="n">CrossValMixin</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A stack of regressors.</span>
 
@@ -104,7 +104,7 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">_required_parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;estimators&#39;</span><span class="p">]</span>
 
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 			<span class="bp">self</span><span class="p">,</span>
 			<span class="n">estimators</span><span class="p">,</span>
 			<span class="n">use_cv_predict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -116,10 +116,10 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">prediction_tier</span> <span class="o">=</span> <span class="n">prediction_tier</span>
 
 	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">named_estimators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">named_estimators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">return</span> <span class="n">Bunch</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators</span><span class="p">))</span>
 
-	<span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Setting the parameters for the boosted estimator</span>
 
@@ -136,7 +136,7 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_params</span><span class="p">(</span><span class="s1">&#39;estimators&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Get the parameters of the boosted estimator</span>
 
@@ -149,10 +149,10 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_params</span><span class="p">(</span><span class="s1">&#39;estimators&#39;</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="n">deep</span><span class="p">)</span>
 
 	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">estimator_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">estimator_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators</span><span class="p">]</span>
 
-	<span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">):</span>
 		<span class="c1"># if attr_name in self.named_estimators:</span>
 		<span class="c1"># 	return self.named_estimators[attr_name]</span>
 		<span class="c1"># raise AttributeError(attr_name)</span>
@@ -168,12 +168,12 @@
 		<span class="k">else</span><span class="p">:</span>
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators</span><span class="p">[</span><span class="n">position</span><span class="p">]</span>
 
-	<span class="k">def</span> <span class="nf">_use_cv_predict_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_use_cv_predict_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_cv_predict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cv_predict</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cv_predict</span>
 
-	<span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
 		<span class="k">if</span> <span class="n">sample_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">raise</span> <span class="ne">NotImplementedError</span>
@@ -191,10 +191,10 @@
 					<span class="n">Y_</span> <span class="o">=</span> <span class="n">Y_</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">e_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 		<span class="k">return</span> <span class="bp">self</span>
 
-	<span class="k">def</span> <span class="nf">_set_prediction_tier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tier</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_set_prediction_tier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tier</span><span class="p">):</span>
 		<span class="n">tier_</span> <span class="o">=</span> <span class="n">tier</span>
 		<span class="k">if</span> <span class="n">tier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-			<span class="kn">import</span> <span class="nn">numbers</span>
+			<span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
 			<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tier</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
 				<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tier must be integer&#39;</span><span class="p">)</span>
 			<span class="k">if</span> <span class="n">tier</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -205,7 +205,7 @@
 				<span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid tier </span><span class="si">{</span><span class="n">tier_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">prediction_tier</span> <span class="o">=</span> <span class="n">tier</span>
 
-	<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">tier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">tier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Generate predictions from a set of exogenous data.</span>
 
@@ -229,7 +229,7 @@
 		<span class="n">Yhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Yhat</span><span class="p">)</span>
 		<span class="k">return</span> <span class="n">Yhat</span>
 
-	<span class="k">def</span> <span class="nf">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">cross_val_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Calculate the cross validation scores for this model.</span>
 
@@ -279,7 +279,7 @@
 
 <div class="viewcode-block" id="LinearAndGaussian">
 <a class="viewcode-back" href="../../../source/emat.metamodels/regression.html#emat.learn.LinearAndGaussian">[docs]</a>
-<span class="k">def</span> <span class="nf">LinearAndGaussian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LinearAndGaussian</span><span class="p">(</span>
 		<span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 		<span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">stats_on_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -415,8 +415,8 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
-	<span class="kn">from</span> <span class="nn">.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-	<span class="kn">from</span> <span class="nn">.anisotropic</span> <span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.anisotropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
 
 	<span class="k">if</span> <span class="n">single_target</span><span class="p">:</span>
 		<span class="n">regressor2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
@@ -453,7 +453,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">LinearInteractAndGaussian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LinearInteractAndGaussian</span><span class="p">(</span>
 		<span class="n">k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -470,8 +470,8 @@
 		<span class="n">use_cv_predict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">single_target</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
-	<span class="kn">from</span> <span class="nn">.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression_KBestPoly</span>
-	<span class="kn">from</span> <span class="nn">.anisotropic</span> <span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression_KBestPoly</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.anisotropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
 	<span class="k">if</span> <span class="n">single_target</span><span class="p">:</span>
 		<span class="n">regressor2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
 	<span class="k">else</span><span class="p">:</span>
@@ -508,7 +508,7 @@
 	<span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">LinearInteractRangeAndGaussian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LinearInteractRangeAndGaussian</span><span class="p">(</span>
 		<span class="n">k_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
 		<span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 		<span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -525,8 +525,8 @@
 		<span class="n">use_cv_predict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 		<span class="n">single_target</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
-	<span class="kn">from</span> <span class="nn">.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression_KRangeBestPoly</span>
-	<span class="kn">from</span> <span class="nn">.anisotropic</span> <span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression_KRangeBestPoly</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.anisotropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnisotropicGaussianProcessRegressor</span>
 	<span class="k">if</span> <span class="n">single_target</span><span class="p">:</span>
 		<span class="n">regressor2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
 	<span class="k">else</span><span class="p">:</span>
@@ -562,7 +562,7 @@
 	<span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">LinearPossibleInteractAndGaussian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LinearPossibleInteractAndGaussian</span><span class="p">(</span>
 		<span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
 		<span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
 		<span class="n">k_search</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span>
@@ -570,8 +570,8 @@
 		<span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 
-	<span class="kn">from</span> <span class="nn">.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
-	<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">.multioutput</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
+	<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
 
 	<span class="k">return</span> <span class="n">MultiOutputRegressor</span><span class="p">(</span>
 		<span class="n">GridSearchCV</span><span class="p">(</span>

@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "09ae7b83",
+   "id": "6fc5f46f",
    "metadata": {},
    "source": [
     "# Database Walkthrough"
@@ -11,7 +11,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a31050a3",
+   "id": "16b3395b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -29,7 +29,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ecf4a2cb",
+   "id": "1664c7f6",
    "metadata": {},
    "source": [
     "For this walkthrough of database features, we'll work in a temporary directory. \n",
@@ -40,7 +40,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "20f5e1cf",
+   "id": "73fbdf60",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -51,7 +51,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4c48a067",
+   "id": "79cf506e",
    "metadata": {},
    "source": [
     "We begin our example by populating a database with some experimental data, by creating and\n",
@@ -61,7 +61,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "db7ef3a1",
+   "id": "15660d43",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -73,7 +73,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fe94ae4d",
+   "id": "44e5dfae",
    "metadata": {},
    "source": [
     "## Single-Design Datasets"
@@ -81,7 +81,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "87c476bf",
+   "id": "310d67fa",
    "metadata": {},
    "source": [
     "### Writing Out Raw Data\n",
@@ -98,7 +98,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2cb6762a",
+   "id": "77388808",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -108,7 +108,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b30ab4a6",
+   "id": "fb1b8463",
    "metadata": {},
    "source": [
     "Exporting this data is simply a matter of using the usual pandas \n",
@@ -120,7 +120,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "3ba015d6",
+   "id": "a6738e35",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -129,7 +129,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0ef9e620",
+   "id": "1dd7a8cd",
    "metadata": {},
    "source": [
     "This table contains most of the information we want to export from\n",
@@ -142,7 +142,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f81dbea3",
+   "id": "6d568f03",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -153,7 +153,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "8da33beb",
+   "id": "fa0a7f88",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -163,7 +163,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "2d53f60a",
+   "id": "851f295b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -172,7 +172,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ef8567ab",
+   "id": "b5c7d315",
    "metadata": {},
    "source": [
     "### Reading In Raw Data\n",
@@ -187,7 +187,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6c27a74d",
+   "id": "6a644697",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -197,7 +197,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "51598a2c",
+   "id": "b6f7dce1",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -207,7 +207,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "790184df",
+   "id": "96f47733",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -216,7 +216,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6b3ec7bc",
+   "id": "2e75435c",
    "metadata": {},
    "source": [
     "Just as we used pandas to save out our consolidated DataFrame of experimental results,\n",
@@ -226,7 +226,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d58a2fbd",
+   "id": "6daa6dcf",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -236,7 +236,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6f4cb92a",
+   "id": "b1d055cc",
    "metadata": {},
    "source": [
     "Writing experiments to a database is not quite as simple as reading them.  There\n",
@@ -252,7 +252,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1e3ae7fb",
+   "id": "4147ca2d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -267,7 +267,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d85a29cc",
+   "id": "2ca1db32",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -276,7 +276,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "1805db6b",
+   "id": "3ec120dd",
    "metadata": {},
    "source": [
     "## Multiple-Design Datasets\n",
@@ -290,7 +290,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1f5fce9f",
+   "id": "66bf1171",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -301,7 +301,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5e2ed110",
+   "id": "7dbcf995",
    "metadata": {},
    "source": [
     "We now have three designs stored in our database. We can confirm this\n",
@@ -311,7 +311,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a8547325",
+   "id": "b6d68504",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -320,7 +320,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "9e505fa3",
+   "id": "95ef442b",
    "metadata": {},
    "source": [
     "The design names we se here are the default names given when designs are created with each of the given samplers.  When creating new designs, we can override the default names with other names of our choice using the `design_name` argument.  The names can be any string not already in use."
@@ -329,7 +329,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5f81a6bf",
+   "id": "98976e42",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -339,7 +339,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c7c2e88c",
+   "id": "1ceba413",
    "metadata": {},
    "source": [
     "If you try to re-use a name you'll get an error, as having multiple designs with the same name does not allow you to make it clear which design you are referring to."
@@ -348,7 +348,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "20213500",
+   "id": "0ad52246",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -360,7 +360,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d964d0f8",
+   "id": "4f2e68fa",
    "metadata": {},
    "source": [
     "As noted above, the design name, which can be any string, is separate from the sampler method. A default design name based on the name of the sampler method is used if no design name is given.  The selected sampler must be one available in EMAT, as the sampler defines a particular logic about how to generate the design."
@@ -369,7 +369,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "21ecf23a",
+   "id": "5625a2d7",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -381,7 +381,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "07b62356",
+   "id": "42774f30",
    "metadata": {},
    "source": [
     "Note that there \n",
@@ -397,7 +397,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e9252b80",
+   "id": "1383f740",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -407,7 +407,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a5a7eade",
+   "id": "35a9f70b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -416,7 +416,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fac62717",
+   "id": "03925780",
    "metadata": {},
    "source": [
     "One \"gotcha\" to be wary of is unintentionally replicating experiments.  By default, the `random_seed` for randomly generated experiemnts is set to 0 for reproducibility.  This means that, for example, the 'bruce' design is actually the same as the original 'lhs' design:"
@@ -425,7 +425,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4ea5a57b",
+   "id": "e0280af4",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -436,7 +436,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a24da3ae",
+   "id": "aec8ddec",
    "metadata": {},
    "source": [
     "If we want a new set of random experiments with the same sampler and other parameters, we'll need to provide a different `random_seed`."
@@ -445,7 +445,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "eb8235d3",
+   "id": "0151873c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -455,7 +455,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c7b5dfac",
+   "id": "8f41e274",
    "metadata": {},
    "source": [
     "### Writing Out Raw Data\n",
@@ -468,7 +468,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ff2e6b20",
+   "id": "9b93643f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -478,7 +478,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6cbfe98c",
+   "id": "353f6f1f",
    "metadata": {},
    "source": [
     "This dataframe is different than the one we saw earlier with the same command, as we have since added a few more experiments to the database in a few different designs.  If we don't give a `design_name` argument, we'll retrieve every (unique) experiment from every design currently stored in the database.  "
@@ -487,7 +487,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c1dc41ff",
+   "id": "e3ee0848",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -496,7 +496,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "59c33b7a",
+   "id": "5cdac536",
    "metadata": {},
    "source": [
     "If we want to be able to reconstruct the various designs of experiments later, \n",
@@ -507,7 +507,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6eacbc96",
+   "id": "98aa0691",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -517,7 +517,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a455a87c",
+   "id": "e4deac3e",
    "metadata": {},
    "source": [
     "We can write this dictionary to a file in 'yaml' format."
@@ -526,7 +526,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9d9ea65d",
+   "id": "a60e4876",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -536,7 +536,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "aee33168",
+   "id": "a7b48902",
    "metadata": {},
    "source": [
     "### Reading In Raw Data"
@@ -544,7 +544,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "da9a9255",
+   "id": "c31dabaf",
    "metadata": {},
    "source": [
     "To construct a new emat Database with multiple designs of experients,..."
@@ -553,7 +553,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "cc33b8e3",
+   "id": "dd9b92de",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -564,7 +564,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "79a019eb",
+   "id": "a6b8b352",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -575,7 +575,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "deb4dbb8",
+   "id": "3bf8f88a",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -587,7 +587,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "725601d8",
+   "id": "205c9c4d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -602,7 +602,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "8725d9f8",
+   "id": "ee5e6252",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -612,7 +612,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c4f71243",
+   "id": "9006f772",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -622,7 +622,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "cdc1566c",
+   "id": "09437215",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -631,7 +631,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0a63eadc",
+   "id": "ad5533b9",
    "metadata": {},
    "source": [
     "## Re-running Experiments"
@@ -639,7 +639,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4bc0f8a0",
+   "id": "bfea744d",
    "metadata": {},
    "source": [
     "This section provides a short walkthrough of how to handle mistakes \n",
@@ -658,7 +658,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "325c1a50",
+   "id": "c188b234",
    "metadata": {},
    "source": [
     "We begin this example by populating our database with some more experimental data, by creating and\n",
@@ -671,7 +671,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a8734c4a",
+   "id": "856af767",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -682,7 +682,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f96411a7",
+   "id": "d124a185",
    "metadata": {},
    "source": [
     "We can review a dataframe of results as before, using the `read_experiment_all`\n",
@@ -694,7 +694,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "92b37389",
+   "id": "2eab8c3c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -705,7 +705,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "18b5849e",
+   "id": "2d9de983",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -714,7 +714,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "00a4f157",
+   "id": "75fcf101",
    "metadata": {},
    "source": [
     "Some of these results are obviously problematic.  Increasing capacity cannot possibly\n",
@@ -729,7 +729,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "81fd728a",
+   "id": "bd8f3cc6",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -740,7 +740,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "32f2d24c",
+   "id": "45d89bcd",
    "metadata": {},
    "source": [
     "The `[73]` returned here indicates that 73 sets of results were invalidated by this command.\n",
@@ -753,7 +753,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "c89ed767",
+   "id": "dae04a8e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -764,7 +764,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "70a60783",
+   "id": "9c29914e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -773,7 +773,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "16dffcde",
+   "id": "e09ba7f6",
    "metadata": {},
    "source": [
     "The re-run fixed the negative values, although it left in place the other \n",
@@ -785,7 +785,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "227ed558",
+   "id": "10f59964",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -795,7 +795,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "44450ceb",
+   "id": "45bd08ce",
    "metadata": {},
    "source": [
     "Those original results are bad too, and we want to invalidate them as well.\n",
@@ -810,7 +810,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9e8b94be",
+   "id": "2ddb5266",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -821,7 +821,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d2769976",
+   "id": "8cd64ca5",
    "metadata": {},
    "source": [
     "Now when we run the experiments again, those 37 experiments are re-run."
@@ -830,7 +830,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f2f00fbe",
+   "id": "39ecaaad",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -840,7 +840,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1a68681b",
+   "id": "c7404dfc",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -849,7 +849,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fdd7cb69",
+   "id": "638fa575",
    "metadata": {},
    "source": [
     "### Writing Out All Runs\n",
@@ -864,7 +864,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "008b68a7",
+   "id": "375a6fa6",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -873,7 +873,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5ab4040a",
+   "id": "785f70d9",
    "metadata": {},
    "source": [
     "In the resulting dataframe above, we can see that we have retrieved two different runs for some of the experiments.\n",
@@ -884,7 +884,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d6922faa",
+   "id": "1f861331",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -898,7 +898,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ce5160bd",
+   "id": "99b893b7",
    "metadata": {},
    "source": [
     "These mechanisms can be use to write out results of multiple runs, \n",

@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.util.distributions &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.util.distributions &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -86,12 +86,12 @@
   <h1>Source code for emat.util.distributions</h1><div class="highlight"><pre>
 <span></span>
 
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">scipy._lib._util</span> <span class="kn">import</span> <span class="n">_lazyselect</span>
-<span class="kn">from</span> <span class="nn">scipy.stats._distn_infrastructure</span> <span class="kn">import</span> <span class="n">rv_frozen</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy._lib._util</span><span class="w"> </span><span class="kn">import</span> <span class="n">_lazyselect</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats._distn_infrastructure</span><span class="w"> </span><span class="kn">import</span> <span class="n">rv_frozen</span>
 
 
-<span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_bounds</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Get the lower and upper bounds for a distribution.</span>
 
@@ -118,7 +118,7 @@
 	<span class="k">return</span> <span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">ppf_zero</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_peaked_distribution_args</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_peaked_distribution_args</span><span class="p">(</span>
 		<span class="n">lower_bound</span><span class="p">,</span>
 		<span class="n">upper_bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="n">rel_peak</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -157,7 +157,7 @@
 
 <div class="viewcode-block" id="triangle">
 <a class="viewcode-back" href="../../../source/emat.scope/continuous_distributions.html#emat.util.distributions.triangle">[docs]</a>
-<span class="k">def</span> <span class="nf">triangle</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">triangle</span><span class="p">(</span>
 		<span class="n">lower_bound</span><span class="p">,</span>
 		<span class="n">upper_bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">*</span><span class="p">,</span>
@@ -204,7 +204,7 @@
 
 <div class="viewcode-block" id="pert">
 <a class="viewcode-back" href="../../../source/emat.scope/continuous_distributions.html#emat.util.distributions.pert">[docs]</a>
-<span class="k">def</span> <span class="nf">pert</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pert</span><span class="p">(</span>
 		<span class="n">lower_bound</span><span class="p">,</span>
 		<span class="n">upper_bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">*</span><span class="p">,</span>
@@ -260,7 +260,7 @@
 	<span class="k">return</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">c</span><span class="o">-</span><span class="n">a</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">binary</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">p_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p_false</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">binary</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">p_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p_false</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Generate a frozen scipy.stats.bernoulli distribution.</span>
 
@@ -285,7 +285,7 @@
 		<span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">p_false</span>
 	<span class="k">return</span> <span class="n">bernoulli</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">constant</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">constant</span><span class="p">(</span>
 		<span class="n">lower_bound</span><span class="p">,</span>
 		<span class="n">upper_bound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 		<span class="o">*</span><span class="p">,</span>
@@ -301,9 +301,9 @@
 		<span class="n">v</span> <span class="o">=</span> <span class="n">upper_bound</span>
 	<span class="k">return</span> <span class="n">uniform</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">truncated</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">truncated</span><span class="p">:</span>
 
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frozen_dist</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frozen_dist</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">frozen_dist</span> <span class="o">=</span> <span class="n">frozen_dist</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">=</span> <span class="n">lower_bound</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="n">upper_bound</span>
@@ -313,16 +313,16 @@
 								<span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">mass_below_lower_bound</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">untruncated_mass</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">total_truncated_mass</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">rvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="n">u</span> <span class="o">=</span> <span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">ppf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">ppf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_dist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span>
 			<span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">untruncated_mass</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass_below_lower_bound</span>
 		<span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 		<span class="n">r</span> <span class="o">=</span> <span class="n">_lazyselect</span><span class="p">([</span><span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span><span class="p">,</span>
 						 <span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">,</span>
 						 <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">],</span>
@@ -333,10 +333,10 @@
 						<span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">))</span>
 		<span class="k">return</span> <span class="n">r</span>
 
-	<span class="k">def</span> <span class="nf">sf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">sf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 		<span class="k">return</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 		<span class="n">r</span> <span class="o">=</span> <span class="n">_lazyselect</span><span class="p">([</span><span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span><span class="p">,</span>
 						 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">),</span>
 						 <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">],</span>
@@ -346,7 +346,7 @@
 						<span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">))</span>
 		<span class="k">return</span> <span class="n">r</span>
 
-	<span class="k">def</span> <span class="nf">logpdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">logpdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 		<span class="n">r</span> <span class="o">=</span> <span class="n">_lazyselect</span><span class="p">([</span><span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span><span class="p">,</span>
 						 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">),</span>
 						 <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">],</span>
@@ -356,15 +356,15 @@
 						<span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">))</span>
 		<span class="k">return</span> <span class="n">r</span>
 
-	<span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented for truncated&quot;</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;not implemented for truncated&quot;</span><span class="p">)</span>
 
 
 
-<span class="k">def</span> <span class="nf">is_discrete_dist</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_discrete_dist</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;Check if the (frozen) distribution is discrete.&quot;&quot;&quot;</span>
 
 	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">truncated</span><span class="p">):</span>
@@ -380,7 +380,7 @@
 	<span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">get_distribution_bounds</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_distribution_bounds</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;Get the bounds of a (frozen) distribution.&quot;&quot;&quot;</span>
 	<span class="n">ppf_zero</span> <span class="o">=</span> <span class="mi">0</span>
 	<span class="k">if</span> <span class="n">is_discrete_dist</span><span class="p">(</span><span class="n">rv</span><span class="p">):</span>

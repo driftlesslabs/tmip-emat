@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.database.sqlite.sqlite_db &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.database.sqlite.sqlite_db &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -90,31 +90,31 @@
 <span class="sd">    The class knows the set of sql files needed to create the necessary tables</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">sqlite3</span>
-<span class="kn">import</span> <span class="nn">atexit</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">AbstractSet</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">uuid</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">atexit</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractSet</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">sql_queries</span> <span class="k">as</span> <span class="n">sq</span>
-<span class="kn">from</span> <span class="nn">..database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">...util.deduplicate</span> <span class="kn">import</span> <span class="n">reindex_duplicates</span>
-<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">DatabaseVersionWarning</span><span class="p">,</span> <span class="n">DatabaseVersionError</span><span class="p">,</span> <span class="n">DatabaseError</span><span class="p">,</span> <span class="n">ReadOnlyDatabaseError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">sql_queries</span> <span class="k">as</span> <span class="n">sq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.deduplicate</span><span class="w"> </span><span class="kn">import</span> <span class="n">reindex_duplicates</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatabaseVersionWarning</span><span class="p">,</span> <span class="n">DatabaseVersionError</span><span class="p">,</span> <span class="n">DatabaseError</span><span class="p">,</span> <span class="n">ReadOnlyDatabaseError</span>
 
-<span class="kn">from</span> <span class="nn">...util.loggers</span> <span class="kn">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_module_logger</span>
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">...util.docstrings</span> <span class="kn">import</span> <span class="n">copydoc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.docstrings</span><span class="w"> </span><span class="kn">import</span> <span class="n">copydoc</span>
 
 <span class="n">sqlite3</span><span class="o">.</span><span class="n">register_adapter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_to_uuid</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_to_uuid</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a value to a UUID&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">b</span>
@@ -137,7 +137,7 @@
 
 <div class="viewcode-block" id="SQLiteDB">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB">[docs]</a>
-<span class="k">class</span> <span class="nc">SQLiteDB</span><span class="p">(</span><span class="n">Database</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SQLiteDB</span><span class="p">(</span><span class="n">Database</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    SQLite implementation of the :class:`Database` abstract base class.</span>
 
@@ -164,7 +164,7 @@
 <span class="sd">            to be an out-of-date database format.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">database_path</span><span class="o">=</span><span class="s2">&quot;:memory:&quot;</span><span class="p">,</span>
             <span class="n">initialize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -175,7 +175,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">readonly</span><span class="o">=</span><span class="n">readonly</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">database_path</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;.gz&#39;</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">gzip</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">gzip</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">database_path</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
@@ -184,7 +184,7 @@
                 <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">database_path</span><span class="p">),</span> <span class="n">tmp</span><span class="p">)</span>
             <span class="n">database_path</span> <span class="o">=</span> <span class="n">tempfilename</span>
         <span class="k">elif</span> <span class="n">database_path</span> <span class="o">==</span> <span class="s1">&#39;tempfile&#39;</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
             <span class="n">database_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tempdir</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;emat-temp.db&quot;</span><span class="p">)</span>
 
@@ -229,7 +229,7 @@
             <span class="n">_min_ver</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_MINIMUM_VERSION_DATABASE</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_min_ver</span><span class="p">):</span>
                 <span class="n">_min_ver_number</span> <span class="o">=</span> <span class="n">_min_ver</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                <span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">__version__</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">...</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
                 <span class="n">ver</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)])</span>
                        <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">1000000</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
                 <span class="k">if</span> <span class="n">_min_ver_number</span> <span class="o">&gt;</span> <span class="n">ver</span><span class="p">:</span>
@@ -271,7 +271,7 @@
         <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">__create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">wipe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_same_thread</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">wipe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_same_thread</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call sql files to create sqlite database file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -282,12 +282,12 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_path</span><span class="p">,</span> <span class="n">check_same_thread</span><span class="o">=</span><span class="n">check_same_thread</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">DatabaseError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;error on connecting to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">database_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="k">raise</span> <span class="n">DatabaseError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;error on connecting to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">database_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
         <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__apply_sql_script</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">conn</span>
 
-    <span class="k">def</span> <span class="nf">__apply_sql_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__apply_sql_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">connection</span><span class="p">:</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
             <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;running script &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
@@ -306,7 +306,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.vacuum">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.vacuum">[docs]</a>
-    <span class="k">def</span> <span class="nf">vacuum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vacuum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vacuum the SQLite database.</span>
 
@@ -319,7 +319,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.update_database_for_run_ids">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_database_for_run_ids">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_database_for_run_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_database_for_run_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add run_id to runs that do not have one.</span>
 
@@ -410,7 +410,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.update_database">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_database">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update database for compatability with tmip-emat 0.4 and later</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -434,7 +434,7 @@
 
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">scopes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scopes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;emat.SQLiteDB with scope &quot;</span><span class="si">{</span><span class="n">scopes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot;&gt;&#39;</span>
@@ -445,7 +445,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;emat.SQLiteDB with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scopes</span><span class="p">)</span><span class="si">}</span><span class="s1"> scopes&gt;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__read_sql_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__read_sql_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        helper function to load sql files to create database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -455,14 +455,14 @@
             <span class="n">all_lines</span> <span class="o">=</span> <span class="n">fil</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">all_lines</span>
         
-    <span class="k">def</span> <span class="nf">__delete_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__delete_database</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete the sqlite database file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_path</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_raw_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bindings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_raw_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bindings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">qry</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">qry</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;PRAGMA table_info(</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">);&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
@@ -483,7 +483,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.get_db_info">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.get_db_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a short string describing this Database</span>
 
@@ -495,7 +495,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.init_xlm">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.init_xlm">[docs]</a>
-    <span class="k">def</span> <span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize or extend set of experiment variables and measures</span>
 
@@ -530,7 +530,7 @@
 
 
 
-    <span class="k">def</span> <span class="nf">_write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the emat scope information to the database.</span>
 
@@ -563,7 +563,7 @@
             <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">content</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">gzip</span><span class="o">,</span> <span class="nn">cloudpickle</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span><span class="o">,</span><span class="w"> </span><span class="nn">cloudpickle</span>
                 <span class="n">blob</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">cloudpickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">blob</span> <span class="o">=</span> <span class="kc">None</span>
@@ -587,7 +587,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.update_scope">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.update_scope">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the emat scope information in the database.</span>
 
@@ -596,7 +596,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
-        <span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">Scope</span><span class="p">)</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">name</span>
 
@@ -604,7 +604,7 @@
             <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">gzip</span><span class="o">,</span> <span class="nn">cloudpickle</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span><span class="o">,</span><span class="w"> </span><span class="nn">cloudpickle</span>
                 <span class="n">blob</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">cloudpickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">scope</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unpickleable scope&quot;</span><span class="p">)</span>
@@ -639,7 +639,7 @@
 <div class="viewcode-block" id="SQLiteDB.store_scope">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.store_scope">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">store_scope</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">store_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save an emat.Scope directly to the database.</span>
 
@@ -656,7 +656,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_scope">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_scope">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load the pickled scope from the database.</span>
 
@@ -693,13 +693,13 @@
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scope &#39;</span><span class="si">{</span><span class="n">scope_name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">blob</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">blob</span>
-        <span class="kn">import</span> <span class="nn">gzip</span><span class="o">,</span> <span class="nn">cloudpickle</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span><span class="o">,</span><span class="w"> </span><span class="nn">cloudpickle</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">cloudpickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">gzip</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">blob</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">ModuleNotFoundError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;ema_workbench&quot;</span> <span class="ow">in</span> <span class="n">err</span><span class="o">.</span><span class="n">msg</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">sys</span>
-                <span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">workbench</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">...</span><span class="w"> </span><span class="kn">import</span> <span class="n">workbench</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;ema_workbench&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">workbench</span>
                 <span class="k">return</span> <span class="n">cloudpickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">gzip</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">blob</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
@@ -710,7 +710,7 @@
 <div class="viewcode-block" id="SQLiteDB.write_metamodel">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_metamodel">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">write_metamodel</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">write_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
@@ -723,8 +723,8 @@
             <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
             <span class="c1"># Do not store PythonCoreModel, store the metamodel it wraps</span>
-            <span class="kn">from</span> <span class="nn">...model.core_python</span> <span class="kn">import</span> <span class="n">PythonCoreModel</span>
-            <span class="kn">from</span> <span class="nn">...model.meta_model</span> <span class="kn">import</span> <span class="n">MetaModel</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">...model.core_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonCoreModel</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">...model.meta_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetaModel</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metamodel</span><span class="p">,</span> <span class="n">PythonCoreModel</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metamodel</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="n">MetaModel</span><span class="p">):</span>
                 <span class="n">metamodel_name</span> <span class="o">=</span> <span class="n">metamodel_name</span> <span class="ow">or</span> <span class="n">metamodel</span><span class="o">.</span><span class="n">name</span>
                 <span class="k">if</span> <span class="n">metamodel_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -739,7 +739,7 @@
             <span class="k">if</span> <span class="n">metamodel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">blob</span> <span class="o">=</span> <span class="n">metamodel</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">gzip</span><span class="o">,</span> <span class="nn">cloudpickle</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span><span class="o">,</span><span class="w"> </span><span class="nn">cloudpickle</span>
                 <span class="n">blob</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">cloudpickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">metamodel</span><span class="p">))</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -749,7 +749,7 @@
             <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">IntegrityError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;metamodel_id </span><span class="si">{</span><span class="n">metamodel_id</span><span class="si">}</span><span class="s1"> for scope &quot;</span><span class="si">{</span><span class="n">scope_name</span><span class="si">}</span><span class="s1">&quot; already exists&#39;</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span> <span class="nn">err</span>
+                <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
 
         <span class="k">return</span> <span class="n">metamodel_id</span></div>
 
@@ -757,7 +757,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_metamodel">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_metamodel">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_metamodel</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">metamodel_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -779,12 +779,12 @@
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no metamodel_id </span><span class="si">{</span><span class="n">metamodel_id</span><span class="si">}</span><span class="s2"> for scope named &#39;</span><span class="si">{</span><span class="n">scope_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-        <span class="kn">import</span> <span class="nn">gzip</span><span class="o">,</span> <span class="nn">pickle</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span><span class="o">,</span><span class="w"> </span><span class="nn">pickle</span>
         <span class="n">mm</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">gzip</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">blob</span><span class="p">))</span>
 
         <span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">...model.core_python</span> <span class="kn">import</span> <span class="n">PythonCoreModel</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...model.core_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonCoreModel</span>
         <span class="k">return</span> <span class="n">PythonCoreModel</span><span class="p">(</span>
             <span class="n">mm</span><span class="p">,</span>
             <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -799,7 +799,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_metamodel_ids">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_metamodel_ids">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_metamodel_ids</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_metamodel_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_metamodel_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">metamodel_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_METAMODEL_IDS</span><span class="p">,</span>
@@ -810,7 +810,7 @@
 <div class="viewcode-block" id="SQLiteDB.get_new_metamodel_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.get_new_metamodel_id">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">get_new_metamodel_id</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_new_metamodel_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_new_metamodel_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -827,7 +827,7 @@
 <div class="viewcode-block" id="SQLiteDB.add_scope_meas">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.add_scope_meas">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">add_scope_meas</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">add_scope_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_scope_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;deprecated: use update_scope instead&quot;</span><span class="p">)</span></div>
 
 
@@ -835,7 +835,7 @@
 <div class="viewcode-block" id="SQLiteDB.delete_scope">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.delete_scope">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">delete_scope</span><span class="p">)</span> 
-    <span class="k">def</span> <span class="nf">delete_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
@@ -845,7 +845,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.write_experiment_parameters">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_parameters">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_experiment_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_parameters</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">,</span>
@@ -904,7 +904,7 @@
             <span class="n">design_name_map</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">design_name</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                    <span class="kn">from</span> <span class="nn">...util.seq_grouping</span> <span class="kn">import</span> <span class="n">seq_int_group_expander</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">...util.seq_grouping</span><span class="w"> </span><span class="kn">import</span> <span class="n">seq_int_group_expander</span>
                     <span class="n">design_name_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">seq_int_group_expander</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">design_name_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
@@ -926,7 +926,7 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">fcur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">INSERT_DESIGN</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
                 <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span> <span class="nn">err</span>
+                    <span class="k">raise</span> <span class="n">DatabaseError</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
 
             <span class="c1">### split experiments into novel and duplicate ###</span>
             <span class="c1"># first join to existing experiments</span>
@@ -991,7 +991,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the experiment id previously defined in the database</span>
 
@@ -1023,7 +1023,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.get_experiment_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.get_experiment_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read or create an experiment id in the database.</span>
 
@@ -1043,7 +1043,7 @@
 <span class="sd">                This can happen, for example, if the definition is incomplete.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">MissingIdWarning</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MissingIdWarning</span>
         <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">MissingIdWarning</span><span class="p">)</span>
             <span class="n">ex_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1060,7 +1060,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.set_experiment_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.set_experiment_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set an experiment id in the database.</span>
 
@@ -1081,7 +1081,7 @@
 <span class="sd">                different id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">MissingIdWarning</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MissingIdWarning</span>
         <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">MissingIdWarning</span><span class="p">)</span>
             <span class="n">ex_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1106,7 +1106,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.new_run_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.new_run_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">new_run_id</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_run_id</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1150,7 +1150,7 @@
             <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
         <span class="n">run_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">platform</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
             <span class="n">location</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">node</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -1168,7 +1168,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.existing_run_id">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.existing_run_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">existing_run_id</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">existing_run_id</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">run_id</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1213,7 +1213,7 @@
             <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_experiment_id</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
         <span class="n">run_id</span> <span class="o">=</span> <span class="n">_to_uuid</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">bytes</span>
         <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">platform</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
             <span class="n">location</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">node</span><span class="p">()</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -1233,7 +1233,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_ids">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_ids">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_ids</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">xl_df</span><span class="p">,</span>
@@ -1306,14 +1306,14 @@
             <span class="n">fcur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">missing_ids</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">MissingIdWarning</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MissingIdWarning</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;missing </span><span class="si">{</span><span class="n">missing_ids</span><span class="si">}</span><span class="s1"> ids&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">MissingIdWarning</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ex_ids</span></div>
 
 
 <div class="viewcode-block" id="SQLiteDB.read_all_experiment_ids">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_all_experiment_ids">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_all_experiment_ids</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_all_experiment_ids</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1362,12 +1362,12 @@
             <span class="n">experiment_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_EXPERIMENT_IDS_IN_DESIGN</span><span class="p">,</span>
                                                              <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">grouped</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">...util.seq_grouping</span> <span class="kn">import</span> <span class="n">seq_int_grouper</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">...util.seq_grouping</span><span class="w"> </span><span class="kn">import</span> <span class="n">seq_int_grouper</span>
             <span class="k">return</span> <span class="n">seq_int_grouper</span><span class="p">(</span><span class="n">experiment_ids</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">experiment_ids</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_validate_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_parameter_name</span><span class="o">=</span><span class="s2">&quot;design_name&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_parameter_name</span><span class="o">=</span><span class="s2">&quot;design_name&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate the scope argument to a function.&quot;&quot;&quot;</span>
         <span class="n">known_scopes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>
 
@@ -1395,7 +1395,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_parameters">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_parameters">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_parameters</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1481,7 +1481,7 @@
                 <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_levers</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">...experiment.experimental_design</span> <span class="kn">import</span> <span class="n">ExperimentalDesign</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...experiment.experimental_design</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentalDesign</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">ExperimentalDesign</span><span class="p">(</span><span class="n">xl_df</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">column_order</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xl_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]])</span>
         <span class="n">result</span><span class="o">.</span><span class="n">design_name</span> <span class="o">=</span> <span class="n">design_name</span>
         <span class="k">if</span> <span class="n">ensure_dtypes</span><span class="p">:</span>
@@ -1499,7 +1499,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.write_experiment_measures">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_measures">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">source</span><span class="p">,</span>
@@ -1628,7 +1628,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.write_ex_m_1">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_ex_m_1">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_ex_m_1</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_ex_m_1</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">source</span><span class="p">,</span>
@@ -1690,7 +1690,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_all">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_all">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_all</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1774,7 +1774,7 @@
 <span class="sd">                When no source is given but the database contains</span>
 <span class="sd">                results from multiple sources.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
             <span class="n">scope</span> <span class="o">=</span> <span class="n">scope_name</span>
             <span class="n">scope_name</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">name</span>
@@ -1850,7 +1850,7 @@
             <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">...experiment.experimental_design</span> <span class="kn">import</span> <span class="n">ExperimentalDesign</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...experiment.experimental_design</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentalDesign</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">ExperimentalDesign</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">design_name</span> <span class="o">=</span> <span class="n">design_name</span>
 
@@ -1859,7 +1859,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_measures">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_measures">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1925,7 +1925,7 @@
             <span class="k">elif</span> <span class="n">design</span> <span class="o">!=</span> <span class="n">design_name</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot give both `design_name` and `design`&quot;</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">Scope</span><span class="p">):</span>
             <span class="n">scope</span> <span class="o">=</span> <span class="n">scope_name</span>
             <span class="n">scope_name</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">name</span>
@@ -2023,7 +2023,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.read_experiment_measure_sources">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_experiment_measure_sources">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2078,7 +2078,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.delete_experiments">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.delete_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">delete_experiments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2118,7 +2118,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.delete_experiment_measures">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.delete_experiment_measures">[docs]</a>
-    <span class="k">def</span> <span class="nf">delete_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">run_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2158,7 +2158,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.invalidate_experiment_runs">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.invalidate_experiment_runs">[docs]</a>
-    <span class="k">def</span> <span class="nf">invalidate_experiment_runs</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">invalidate_experiment_runs</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">run_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">queries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2245,7 +2245,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.write_experiment_all">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_experiment_all">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_experiment_all</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_all</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">,</span>
@@ -2311,7 +2311,7 @@
                     <span class="p">[</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
                 <span class="k">if</span> <span class="n">exist</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-                    <span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="n">DesignExistsError</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">DesignExistsError</span>
                     <span class="k">raise</span> <span class="n">DesignExistsError</span><span class="p">(</span>
                         <span class="s1">&#39;scope </span><span class="si">{0}</span><span class="s1"> with design </span><span class="si">{1}</span><span class="s1"> found, &#39;</span> 
                         <span class="s1">&#39;must be deleted before recording&#39;</span>
@@ -2340,7 +2340,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_scope_names">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_scope_names">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_scope_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_scope_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">scopes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_NAMES</span> <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
@@ -2353,7 +2353,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_design_names">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_design_names">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_design_names</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">designs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_DESIGN_NAMES</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
@@ -2363,7 +2363,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_uncertainties">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_uncertainties">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_uncertainties</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">scp_x</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_X</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2373,7 +2373,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_levers">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_levers">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_levers</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_levers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_levers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">scp_l</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_L</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2383,7 +2383,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_constants">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_constants">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_constants</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">scp_c</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_C</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2393,7 +2393,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_measures">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_measures">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_measures</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">scp_m</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_SCOPE_M</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2403,11 +2403,11 @@
 <div class="viewcode-block" id="SQLiteDB.read_box">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_box">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_box</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">...scope.box</span> <span class="kn">import</span> <span class="n">Box</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_box_parent_name</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="n">box_name</span><span class="p">)</span>
         <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">box_name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span>
                   <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
@@ -2429,7 +2429,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_box_names">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_box_names">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_box_names</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_box_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">names</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_BOX_NAMES</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2439,7 +2439,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_box_parent_name">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_box_parent_name">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_box_parent_name</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_box_parent_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_parent_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -2451,7 +2451,7 @@
 <div class="viewcode-block" id="SQLiteDB.read_box_parent_names">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_box_parent_names">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_box_parent_names</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_box_parent_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_parent_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">names</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">GET_BOX_PARENT_NAMES</span><span class="p">,</span> <span class="p">[</span><span class="n">scope_name</span><span class="p">])</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -2461,8 +2461,8 @@
 <div class="viewcode-block" id="SQLiteDB.read_boxes">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.read_boxes">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">read_boxes</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">...scope.box</span> <span class="kn">import</span> <span class="n">Boxes</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boxes</span>
         <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">scope_name</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">name</span>
         <span class="n">scope_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -2477,9 +2477,9 @@
 <div class="viewcode-block" id="SQLiteDB.write_box">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_box">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">write_box</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">write_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">...scope.box</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Bounds</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">...scope.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Bounds</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">Box</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -2546,7 +2546,7 @@
 <div class="viewcode-block" id="SQLiteDB.write_boxes">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.write_boxes">[docs]</a>
     <span class="nd">@copydoc</span><span class="p">(</span><span class="n">Database</span><span class="o">.</span><span class="n">write_boxes</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">write_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">boxes</span><span class="o">.</span><span class="n">scope</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">scope_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scope_name</span> <span class="o">!=</span> <span class="n">boxes</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
@@ -2558,7 +2558,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.log">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.log">[docs]</a>
-    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Log a message into the SQLite database</span>
 
@@ -2576,7 +2576,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.merge_log">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_log">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Merge the log from another SQLiteDB into this database log.</span>
 
@@ -2624,7 +2624,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.print_log">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.print_log">[docs]</a>
-    <span class="k">def</span> <span class="nf">print_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;DESC&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;DESC&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print logged messages from the SQLite database</span>
 
@@ -2679,7 +2679,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.mark_run_invalid">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.mark_run_invalid">[docs]</a>
-    <span class="k">def</span> <span class="nf">mark_run_invalid</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mark_run_invalid</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">run_id</span>
     <span class="p">):</span>
@@ -2707,7 +2707,7 @@
                 <span class="n">_logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FAILED TO MARK AS INVALID RUN_ID </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">get_run_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_run_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">runs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_query</span><span class="p">(</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            SELECT </span>
@@ -2728,7 +2728,7 @@
 
 <div class="viewcode-block" id="SQLiteDB.merge_database">
 <a class="viewcode-back" href="../../../../source/emat.database/sqlitedb.html#emat.database.SQLiteDB.merge_database">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge_database</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge_database</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">other</span><span class="p">,</span>
             <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -2776,7 +2776,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ReadOnlyDatabaseError</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Database</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">...util.deduplicate</span> <span class="kn">import</span> <span class="n">count_diff_rows</span><span class="p">,</span> <span class="n">report_diff_rows</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">...util.deduplicate</span><span class="w"> </span><span class="kn">import</span> <span class="n">count_diff_rows</span><span class="p">,</span> <span class="n">report_diff_rows</span>
         <span class="n">other_db_path</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;database_path&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">other_db_path</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;merging from database at </span><span class="si">{</span><span class="n">other_db_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

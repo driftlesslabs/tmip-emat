@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.database.database &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.database.database &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -94,13 +94,13 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
 
 <div class="viewcode-block" id="Database">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database">[docs]</a>
-<span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Database</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Abstract Base Class for EMAT data storage</span>
 <span class="sd">    </span>
@@ -108,25 +108,25 @@
 <span class="sd">    and the core and meta-model results (performance measures)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span> <span class="o">=</span> <span class="n">readonly</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
     <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Context manager to temporarily mark this database as locked.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">yield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">readonly</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__locked</span>
 
 <div class="viewcode-block" id="Database.get_db_info">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_db_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_db_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a short string describing this Database</span>
 
@@ -139,7 +139,7 @@
 <div class="viewcode-block" id="Database.init_xlm">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.init_xlm">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_xlm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_list</span><span class="p">,</span> <span class="n">measure_list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize or extend set of experiment variables and measures</span>
 
@@ -163,7 +163,7 @@
 
     
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">_write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">scp_xl</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the emat scope information to the database.</span>
 
@@ -194,7 +194,7 @@
 <div class="viewcode-block" id="Database.update_scope">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.update_scope">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the emat scope information in the database.</span>
 
@@ -206,7 +206,7 @@
 <div class="viewcode-block" id="Database.store_scope">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.store_scope">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">store_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save an emat.Scope directly to the database.</span>
 
@@ -220,7 +220,7 @@
 <div class="viewcode-block" id="Database.read_scope">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_scope">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load the pickled scope from the database.</span>
 
@@ -245,7 +245,7 @@
 <div class="viewcode-block" id="Database.add_scope_meas">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.add_scope_meas">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">add_scope_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_scope_meas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">scp_m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the set of performance measures associated with the scope</span>
 <span class="sd">        </span>
 <span class="sd">        Use this function when the core model runs are complete to add</span>
@@ -266,7 +266,7 @@
 <div class="viewcode-block" id="Database.delete_scope">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_scope">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">delete_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the scope from the database</span>
 <span class="sd">        </span>
 <span class="sd">        Deletes the scope as well as any experiments and results associated</span>
@@ -280,7 +280,7 @@
 <div class="viewcode-block" id="Database.write_experiment_parameters">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_parameters">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_experiment_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_parameters</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">,</span>
@@ -323,7 +323,7 @@
 
 <div class="viewcode-block" id="Database.write_experiment_parameters_1">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_parameters_1">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_experiment_parameters_1</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_parameters_1</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -379,7 +379,7 @@
 <div class="viewcode-block" id="Database.read_experiment_parameters">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_parameters">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_parameters</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -430,7 +430,7 @@
 <div class="viewcode-block" id="Database.write_experiment_measures">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_measures">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">source</span><span class="p">,</span>
@@ -473,7 +473,7 @@
 
 <div class="viewcode-block" id="Database.write_experiment_run_status">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_run_status">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_experiment_run_status</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_run_status</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">run_id</span><span class="p">,</span>
@@ -495,7 +495,7 @@
 
 <div class="viewcode-block" id="Database.read_experiment_run_status">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_run_status">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_run_status</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_run_status</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -539,7 +539,7 @@
 <div class="viewcode-block" id="Database.read_experiment_all">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_all">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_all</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_all</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -623,7 +623,7 @@
 <div class="viewcode-block" id="Database.read_experiment_measures">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_measures">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -681,7 +681,7 @@
 <div class="viewcode-block" id="Database.read_experiment_measure_sources">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_measure_sources">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_measure_sources</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -714,7 +714,7 @@
 <div class="viewcode-block" id="Database.delete_experiments">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiments">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">delete_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete experiment definitions and results.</span>
 <span class="sd">        </span>
@@ -737,7 +737,7 @@
 <div class="viewcode-block" id="Database.delete_experiment_measures">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.delete_experiment_measures">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">delete_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">experiment_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -761,7 +761,7 @@
 <div class="viewcode-block" id="Database.write_experiment_all">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_experiment_all">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">xlm_df</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_experiment_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">xlm_df</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write experiment definitions and results</span>
 <span class="sd">        </span>
@@ -803,7 +803,7 @@
 <div class="viewcode-block" id="Database.read_scope_names">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_scope_names">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_scope_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_scope_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all available scopes in the database.</span>
 
 <span class="sd">        Args:</span>
@@ -818,7 +818,7 @@
 <div class="viewcode-block" id="Database.read_design_names">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_design_names">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all available designs for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -830,7 +830,7 @@
 <div class="viewcode-block" id="Database.read_experiment_id">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_id">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the experiment id previously defined in the database</span>
 
@@ -855,7 +855,7 @@
 <div class="viewcode-block" id="Database.read_experiment_ids">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_experiment_ids">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">xl_df</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the experiment ids previously defined in the database.</span>
 
@@ -883,7 +883,7 @@
 <div class="viewcode-block" id="Database.read_uncertainties">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_uncertainties">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all uncertainties for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -894,7 +894,7 @@
 <div class="viewcode-block" id="Database.read_levers">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_levers">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_levers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_levers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all levers for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -905,7 +905,7 @@
 <div class="viewcode-block" id="Database.read_constants">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_constants">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_constants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all constants for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -916,7 +916,7 @@
 <div class="viewcode-block" id="Database.read_measures">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_measures">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all performance measures for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -927,7 +927,7 @@
 <div class="viewcode-block" id="Database.write_metamodel">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_metamodel">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metamodel_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Store a meta-model in the database</span>
 
 <span class="sd">         Args:</span>
@@ -949,7 +949,7 @@
 <div class="viewcode-block" id="Database.read_metamodel">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_metamodel">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">metamodel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve a meta-model from the database.</span>
 
 <span class="sd">        Args:</span>
@@ -967,7 +967,7 @@
 <div class="viewcode-block" id="Database.read_metamodel_ids">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_metamodel_ids">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_metamodel_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_metamodel_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A list of all metamodel id&#39;s for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -978,7 +978,7 @@
 <div class="viewcode-block" id="Database.get_new_metamodel_id">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.get_new_metamodel_id">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_new_metamodel_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_new_metamodel_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a new unused metamodel id for a given scope.</span>
 
 <span class="sd">        Args:</span>
@@ -992,7 +992,7 @@
 <div class="viewcode-block" id="Database.read_box">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read a Box from the database.</span>
 
@@ -1014,7 +1014,7 @@
 <div class="viewcode-block" id="Database.read_box_names">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_names">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_box_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the names of all boxes associated with a particular scope.</span>
 
@@ -1030,7 +1030,7 @@
 <div class="viewcode-block" id="Database.read_box_parent_name">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_parent_name">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_box_parent_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_parent_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">box_name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the name of the parent box for a particular box in the database</span>
 
@@ -1051,7 +1051,7 @@
 <div class="viewcode-block" id="Database.read_box_parent_names">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_box_parent_names">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_box_parent_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_box_parent_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the name of the parent box for each box in the database.</span>
 
@@ -1070,7 +1070,7 @@
 <div class="viewcode-block" id="Database.read_boxes">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.read_boxes">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">read_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read Boxes from the database.</span>
 
@@ -1093,7 +1093,7 @@
 <div class="viewcode-block" id="Database.write_box">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_box">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write a single box to the database.</span>
 
@@ -1117,7 +1117,7 @@
 <div class="viewcode-block" id="Database.write_boxes">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.write_boxes">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">write_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_boxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write Boxes to the database.</span>
 
@@ -1141,7 +1141,7 @@
 <div class="viewcode-block" id="Database.new_run_id">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.new_run_id">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">new_run_id</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_run_id</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">scope_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1180,12 +1180,12 @@
 
 <div class="viewcode-block" id="Database.info">
 <a class="viewcode-back" href="../../../source/emat.database/abstract.html#emat.database.Database.info">[docs]</a>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print info about scopes and designs in this database.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">import</span> <span class="nn">sys</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
             <span class="n">stream</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;emat.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
         <span class="n">scope_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_scope_names</span><span class="p">()</span>

@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.core_model &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.core_model &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
 
   
-      <script src="../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/thebelab-helper.js"></script>
@@ -86,37 +86,37 @@
   <h1>Source code for emat.model.core_model</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot; core_model.py - define coure model API&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
-<span class="kn">from</span> <span class="nn">..workbench.em_framework.model</span> <span class="kn">import</span> <span class="n">AbstractModel</span> <span class="k">as</span> <span class="n">AbstractWorkbenchModel</span>
-<span class="kn">from</span> <span class="nn">..workbench.em_framework.evaluators</span> <span class="kn">import</span> <span class="n">BaseEvaluator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.em_framework.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractModel</span> <span class="k">as</span> <span class="n">AbstractWorkbenchModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.em_framework.evaluators</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEvaluator</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Collection</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Collection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
 
-<span class="kn">from</span> <span class="nn">..database.database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">..scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">..optimization.optimization_result</span> <span class="kn">import</span> <span class="n">OptimizationResult</span>
-<span class="kn">from</span> <span class="nn">..optimization</span> <span class="kn">import</span> <span class="n">EpsilonProgress</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">,</span> <span class="n">SolutionCount</span>
-<span class="kn">from</span> <span class="nn">..util.evaluators</span> <span class="kn">import</span> <span class="n">prepare_evaluator</span>
-<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">MissingArchivePathError</span><span class="p">,</span> <span class="n">ReadOnlyDatabaseError</span><span class="p">,</span> <span class="n">MissingIdWarning</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..database.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..optimization.optimization_result</span><span class="w"> </span><span class="kn">import</span> <span class="n">OptimizationResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..optimization</span><span class="w"> </span><span class="kn">import</span> <span class="n">EpsilonProgress</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">,</span> <span class="n">SolutionCount</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.evaluators</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_evaluator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MissingArchivePathError</span><span class="p">,</span> <span class="n">ReadOnlyDatabaseError</span><span class="p">,</span> <span class="n">MissingIdWarning</span>
 
-<span class="kn">from</span> <span class="nn">.._pkg_constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.._pkg_constants</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
-<span class="kn">from</span> <span class="nn">..util.loggers</span> <span class="kn">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util.loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_module_logger</span>
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AbstractCoreModel">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel">[docs]</a>
-<span class="k">class</span> <span class="nc">AbstractCoreModel</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">,</span> <span class="n">AbstractWorkbenchModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractCoreModel</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">,</span> <span class="n">AbstractWorkbenchModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An interface for using a model with EMAT.</span>
 
@@ -151,7 +151,7 @@
 <span class="sd">            Defaults to 0 (i.e., not a meta-model).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">configuration</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Mapping</span><span class="p">,</span><span class="kc">None</span><span class="p">],</span>
                  <span class="n">scope</span><span class="p">,</span>
                  <span class="n">safe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -183,14 +183,14 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">metamodel_id</span> <span class="o">=</span> <span class="n">metamodel_id</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># don&#39;t pickle the db connection</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
 
 <div class="viewcode-block" id="AbstractCoreModel.setup">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.setup">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Configure the core model with the experiment variable values.</span>
 
@@ -233,7 +233,7 @@
 <div class="viewcode-block" id="AbstractCoreModel.get_experiment_archive_path">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.get_experiment_archive_path">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_experiment_archive_path</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">makedirs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -275,7 +275,7 @@
 <div class="viewcode-block" id="AbstractCoreModel.run">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run the core model.</span>
 
@@ -302,7 +302,7 @@
     
 <div class="viewcode-block" id="AbstractCoreModel.post_process">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.post_process">[docs]</a>
-    <span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs post processors associated with particular performance measures.</span>
 
@@ -352,7 +352,7 @@
 <div class="viewcode-block" id="AbstractCoreModel.load_measures">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.load_measures">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">measure_names</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
@@ -394,7 +394,7 @@
 <div class="viewcode-block" id="AbstractCoreModel.archive">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.archive">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Copies model outputs to archive location.</span>
 <span class="sd">        </span>
@@ -407,29 +407,29 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">allow_short_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allow_short_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Bool: Allow model runs to be skipped if measures already appear in the database.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allow_short_circuit&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@allow_short_circuit</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">allow_short_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allow_short_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;allow_short_circuit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ignore_crash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ignore_crash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Bool: Allow model runs to `post_process` and `archive` even after an apparent crash in `run`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ignore_crash&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="nd">@ignore_crash</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">ignore_crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ignore_crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;ignore_crash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">success_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">success_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        str: The name of a file that indicates the model has run successfully.</span>
 
@@ -440,11 +440,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;success_indicator&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="nd">@success_indicator</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">success_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">success_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;success_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">killed_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">killed_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        str: The name of a file that indicates the model was killed due to an unrecoverable error.</span>
 
@@ -455,20 +455,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;killed_indicator&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="nd">@killed_indicator</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">killed_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">killed_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;killed_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Path: The current local working directory for this model.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;local_directory&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 
     <span class="nd">@local_directory</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;local_directory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">resolved_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolved_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Path: The resolved model path.</span>
 
@@ -480,13 +480,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_directory</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_db_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_db_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">is_locked</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="nd">@contextmanager</span>
-    <span class="k">def</span> <span class="nf">lock_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lock_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
                 <span class="k">yield</span>
@@ -495,17 +495,17 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.enter_run_model">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.enter_run_model">[docs]</a>
-    <span class="k">def</span> <span class="nf">enter_run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enter_run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A hook for actions at the very beginning of the run_model step.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="AbstractCoreModel.exit_run_model">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.exit_run_model">[docs]</a>
-    <span class="k">def</span> <span class="nf">exit_run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exit_run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A hook for actions at the very end of the run_model step.&quot;&quot;&quot;</span></div>
 
 
-    <span class="k">def</span> <span class="nf">run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs an experiment through core model.</span>
 
@@ -603,7 +603,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NO DATABASE experiment_id </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="k">def</span> <span class="nf">set_status</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">set_status</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
                 <span class="n">run_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;run_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">run_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">experiment_id</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">write_experiment_run_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
@@ -734,7 +734,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.read_experiments">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">,</span>
             <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -785,7 +785,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.read_experiment_parameters">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiment_parameters">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_parameters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_parameters</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -837,7 +837,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.read_experiment_measures">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.read_experiment_measures">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_experiment_measures</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_experiment_measures</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="n">args</span><span class="p">,</span>
             <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -885,7 +885,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.ensure_dtypes">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.ensure_dtypes">[docs]</a>
-    <span class="k">def</span> <span class="nf">ensure_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ensure_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert columns of dataframe to correct dtype as needed.</span>
 
@@ -902,7 +902,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.design_experiments">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.design_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">design_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">design_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a design of experiments based on this model.</span>
 
@@ -957,13 +957,13 @@
         <span class="k">if</span> <span class="s1">&#39;db&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span>
 
-        <span class="kn">from</span> <span class="nn">..experiment</span> <span class="kn">import</span> <span class="n">experimental_design</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">experimental_design</span>
         <span class="k">return</span> <span class="n">experimental_design</span><span class="o">.</span><span class="n">design_experiments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AbstractCoreModel.async_experiments">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.async_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">async_experiments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">async_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1050,7 +1050,7 @@
         <span class="k">if</span> <span class="n">design</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no experiments available&quot;</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">.asynchronous</span> <span class="kn">import</span>  <span class="n">asynchronous_experiments</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.asynchronous</span><span class="w"> </span><span class="kn">import</span>  <span class="n">asynchronous_experiments</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1071,7 +1071,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.run_experiments">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run_experiments">[docs]</a>
-    <span class="k">def</span> <span class="nf">run_experiments</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_experiments</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1125,7 +1125,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">..workbench</span> <span class="kn">import</span> <span class="n">Scenario</span><span class="p">,</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">perform_experiments</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scenario</span><span class="p">,</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">perform_experiments</span>
 
         <span class="c1"># catch user gives only a design, not experiment_parameters</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">design_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1147,14 +1147,14 @@
 
         <span class="c1"># catch metamodels here and run them as a batch, which is much faster</span>
         <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;function&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">.meta_model</span> <span class="kn">import</span> <span class="n">MetaModel</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.meta_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetaModel</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">MetaModel</span><span class="p">):</span>
             <span class="n">outcomes</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
                 <span class="n">design</span><span class="p">,</span>
                 <span class="n">outcomes</span>
             <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-            <span class="kn">from</span> <span class="nn">..experiment.experimental_design</span> <span class="kn">import</span> <span class="n">ExperimentalDesign</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..experiment.experimental_design</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentalDesign</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">ExperimentalDesign</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
             <span class="n">result</span><span class="o">.</span><span class="n">design_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1262,7 +1262,7 @@
                 <span class="n">experiments_</span><span class="p">,</span>
                 <span class="n">outcomes</span>
             <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-            <span class="kn">from</span> <span class="nn">..experiment.experimental_design</span> <span class="kn">import</span> <span class="n">ExperimentalDesign</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..experiment.experimental_design</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentalDesign</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">ExperimentalDesign</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
             <span class="n">result</span><span class="o">.</span><span class="n">design_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="s1">&#39;design_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1272,7 +1272,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.run_reference_experiment">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.run_reference_experiment">[docs]</a>
-    <span class="k">def</span> <span class="nf">run_reference_experiment</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_reference_experiment</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
@@ -1309,7 +1309,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.create_metamodel_from_data">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_metamodel_from_data</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_metamodel_from_data</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">experiment_inputs</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
             <span class="n">experiment_outputs</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
@@ -1373,7 +1373,7 @@
 <span class="sd">                function, accepts keyword arguments as inputs and</span>
 <span class="sd">                returns a dictionary of (measure name: value) pairs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.meta_model</span> <span class="kn">import</span> <span class="n">create_metamodel</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.meta_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_metamodel</span>
 
         <span class="c1"># The outputs index typically has a 2-level multi-index,</span>
         <span class="c1"># giving both experiment_id and run_id.  But for this</span>
@@ -1399,7 +1399,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.create_metamodel_from_design">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_design">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_metamodel_from_design</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_metamodel_from_design</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
             <span class="n">metamodel_id</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1455,7 +1455,7 @@
 
         <span class="n">check_df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">check_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">PendingExperimentsError</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PendingExperimentsError</span>
             <span class="k">raise</span> <span class="n">PendingExperimentsError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;design &quot;</span><span class="si">{</span><span class="n">design_name</span><span class="si">}</span><span class="s1">&quot; has pending experiments&#39;</span><span class="p">)</span>
 
         <span class="n">experiment_inputs</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">)</span>
@@ -1483,7 +1483,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.create_metamodel_from_designs">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.create_metamodel_from_designs">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_metamodel_from_designs</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_metamodel_from_designs</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design_names</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
             <span class="n">metamodel_id</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1524,7 +1524,7 @@
             <span class="k">for</span> <span class="n">design_name</span> <span class="ow">in</span> <span class="n">design_names</span><span class="p">:</span>
                 <span class="n">check_df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">read_experiment_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">only_pending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">check_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-                    <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">PendingExperimentsError</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">..exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">PendingExperimentsError</span>
                     <span class="k">raise</span> <span class="n">PendingExperimentsError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;design &quot;</span><span class="si">{</span><span class="n">design_name</span><span class="si">}</span><span class="s1">&quot; has pending experiments&#39;</span><span class="p">)</span>
 
         <span class="n">experiment_inputs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1563,7 +1563,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.feature_scores">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.feature_scores">[docs]</a>
-    <span class="k">def</span> <span class="nf">feature_scores</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_scores</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design</span><span class="p">,</span>
             <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;styled&#39;</span><span class="p">,</span>
@@ -1604,7 +1604,7 @@
 <span class="sd">        This function internally uses feature_scoring from the EMA Workbench, which in turn</span>
 <span class="sd">        scores features using the &quot;extra trees&quot; regression approach.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..analysis.feature_scoring</span> <span class="kn">import</span> <span class="n">feature_scores</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..analysis.feature_scoring</span><span class="w"> </span><span class="kn">import</span> <span class="n">feature_scores</span>
         <span class="k">if</span> <span class="n">shortnames</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">shortnames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span>
         <span class="k">return</span> <span class="n">feature_scores</span><span class="p">(</span>
@@ -1619,21 +1619,21 @@
         <span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">get_feature_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_feature_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deprecated, use `Model.feature_scores`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># for compatability with prior versions of TMIP-EMAT</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_scores</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_common_optimization_setup</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_common_optimization_setup</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">epsilons</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
             <span class="n">convergence</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
             <span class="n">display_convergence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">numbers</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epsilons</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
             <span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="n">epsilons</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcomes</span><span class="p">)</span>
 
@@ -1644,7 +1644,7 @@
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">display_convergence</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">convergence</span><span class="p">,</span> <span class="n">ConvergenceMetrics</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
             <span class="n">display</span><span class="p">(</span><span class="n">convergence</span><span class="p">)</span>
 
         <span class="n">evaluator</span> <span class="o">=</span> <span class="n">prepare_evaluator</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -1653,7 +1653,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.optimize">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.optimize">[docs]</a>
-    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">searchover</span><span class="o">=</span><span class="s1">&#39;levers&#39;</span><span class="p">,</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1742,14 +1742,14 @@
 <span class="sd">                When `convergence` is given, the convergence measures are</span>
 <span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..util.disk_cache</span> <span class="kn">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..util.disk_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="vm">__name__</span>
 
         <span class="k">if</span> <span class="n">reference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">..workbench</span> <span class="kn">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Scenario</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench</span><span class="w"> </span><span class="kn">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Scenario</span>
             <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">Scenario</span><span class="p">):</span>
                 <span class="n">reference</span> <span class="o">=</span> <span class="n">Scenario</span><span class="p">(</span><span class="s2">&quot;ReferenceScenario&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">reference</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;uncertainties&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">Policy</span><span class="p">):</span>
@@ -1791,7 +1791,7 @@
                 <span class="k">with</span> <span class="n">evaluator</span><span class="p">:</span>
 
                     <span class="k">if</span> <span class="n">epsilons</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
-                        <span class="kn">from</span> <span class="nn">..workbench</span> <span class="kn">import</span> <span class="n">perform_experiments</span>
+                        <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench</span><span class="w"> </span><span class="kn">import</span> <span class="n">perform_experiments</span>
                         <span class="k">if</span> <span class="n">searchover</span> <span class="o">==</span> <span class="s1">&#39;levers&#39;</span><span class="p">:</span>
                             <span class="n">_</span><span class="p">,</span> <span class="n">trial_outcomes</span> <span class="o">=</span> <span class="n">perform_experiments</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="p">,</span>
@@ -1871,7 +1871,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_optimize">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_optimize">[docs]</a>
-    <span class="k">def</span> <span class="nf">robust_optimize</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">robust_optimize</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">robustness_functions</span><span class="p">,</span>
             <span class="n">scenarios</span><span class="p">,</span>
@@ -1958,9 +1958,9 @@
 <span class="sd">                When `convergence` is given, the convergence measures are</span>
 <span class="sd">                included, as a pandas.DataFrame in the `convergence` attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">..optimization.optimize</span> <span class="kn">import</span> <span class="n">robust_optimize</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..optimization.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">robust_optimize</span>
 
-        <span class="kn">from</span> <span class="nn">..util.disk_cache</span> <span class="kn">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..util.disk_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_cache_if_available</span><span class="p">,</span> <span class="n">save_cache</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">alg</span> <span class="o">=</span> <span class="n">algorithm</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2018,7 +2018,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.robust_evaluate">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.robust_evaluate">[docs]</a>
-    <span class="k">def</span> <span class="nf">robust_evaluate</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">robust_evaluate</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">robustness_functions</span><span class="p">,</span>
             <span class="n">scenarios</span><span class="p">,</span>
@@ -2069,7 +2069,7 @@
         <span class="n">cache_file</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">cache_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">..util.hasher</span> <span class="kn">import</span> <span class="n">hash_it</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">..util.hasher</span><span class="w"> </span><span class="kn">import</span> <span class="n">hash_it</span>
                 <span class="n">hh</span> <span class="o">=</span> <span class="n">hash_it</span><span class="p">(</span>
                     <span class="n">scenarios</span><span class="p">,</span>
                     <span class="n">policies</span><span class="p">,</span>
@@ -2079,29 +2079,29 @@
                 <span class="n">cache_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span><span class="n">hh</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">hh</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span><span class="n">hh</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span><span class="o">+</span><span class="s2">&quot;.gz&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cache_file</span><span class="p">):</span>
                     <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;loading from cache_file=</span><span class="si">{</span><span class="n">cache_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="kn">from</span> <span class="nn">..util.filez</span> <span class="kn">import</span> <span class="n">load</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">..util.filez</span><span class="w"> </span><span class="kn">import</span> <span class="n">load</span>
                     <span class="n">robust_results</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">cache_file</span><span class="p">)</span>
                     <span class="n">cache_file</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
                 <span class="k">raise</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">traceback</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;unable to manage cache&#39;</span><span class="p">)</span>
                 <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">robust_results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock_db</span><span class="p">(</span><span class="n">suspend_db</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">evaluator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="kn">from</span> <span class="nn">..workbench.em_framework</span> <span class="kn">import</span> <span class="n">SequentialEvaluator</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.em_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">SequentialEvaluator</span>
                     <span class="n">evaluator</span> <span class="o">=</span> <span class="n">SequentialEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">BaseEvaluator</span><span class="p">):</span>
-                    <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">Client</span><span class="p">):</span>
-                        <span class="kn">from</span> <span class="nn">..workbench.em_framework.ema_distributed</span> <span class="kn">import</span> <span class="n">DistributedEvaluator</span>
+                        <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.em_framework.ema_distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">DistributedEvaluator</span>
                         <span class="n">evaluator</span> <span class="o">=</span> <span class="n">DistributedEvaluator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
 
-                <span class="kn">from</span> <span class="nn">..workbench.em_framework.samplers</span> <span class="kn">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">..workbench.em_framework.samplers</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample_uncertainties</span><span class="p">,</span> <span class="n">sample_levers</span>
 
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                     <span class="n">n_scenarios</span> <span class="o">=</span> <span class="n">scenarios</span>
@@ -2117,7 +2117,7 @@
                 <span class="n">robust_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_dtypes</span><span class="p">(</span><span class="n">robust_results</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cache_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">..util.filez</span> <span class="kn">import</span> <span class="n">save</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">..util.filez</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span>
             <span class="n">save</span><span class="p">(</span><span class="n">robust_results</span><span class="p">,</span> <span class="n">cache_file</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">,</span><span class="s1">&#39;.info.txt&#39;</span><span class="p">),</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">notes</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scenarios=&quot;</span><span class="p">,</span> <span class="n">scenarios</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">notes</span><span class="p">)</span>
@@ -2129,7 +2129,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.io_experiment">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.io_experiment">[docs]</a>
-    <span class="k">def</span> <span class="nf">io_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">io_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run an experiment, and return a dictionary of inputs and outputs together.</span>
 
@@ -2146,7 +2146,7 @@
 
 <div class="viewcode-block" id="AbstractCoreModel.log">
 <a class="viewcode-back" href="../../../source/emat.models/abstract.html#emat.model.AbstractCoreModel.log">[docs]</a>
-    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Log a message.</span>
 

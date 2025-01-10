@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "raw",
-   "id": "36557437",
+   "id": "c97d779e",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -13,7 +13,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e1e0ceb6",
+   "id": "492288a8",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -23,7 +23,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "57dd4822",
+   "id": "84f53a6f",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -33,7 +33,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0ca4abd2",
+   "id": "afdc22c7",
    "metadata": {},
    "source": [
     "# Feature Scoring\n",
@@ -47,7 +47,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6aa9a64a",
+   "id": "c1c42738",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -62,7 +62,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3e3aba5e",
+   "id": "6a7cad76",
    "metadata": {},
    "source": [
     "We can readily tell from the functional form that the *B* term is the\n",
@@ -79,7 +79,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "f2c13164",
+   "id": "57bc7b73",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -110,7 +110,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ff89d647",
+   "id": "d34fb8b6",
    "metadata": {},
    "source": [
     "And then we will design and run some experiments to generate data used for\n",
@@ -120,7 +120,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9fce4a8b",
+   "id": "b01f242d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -132,7 +132,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "7ca1e208",
+   "id": "9c945702",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -144,7 +144,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "50db8d89",
+   "id": "2a8c5ed1",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -155,7 +155,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "fbfa6253",
+   "id": "2ca07a6d",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -171,7 +171,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "11043577",
+   "id": "5e2e1cc9",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -188,7 +188,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "205fbef2",
+   "id": "906669f3",
    "metadata": {},
    "source": [
     "One important thing to consider is that changing the range of the input parameters \n",
@@ -200,7 +200,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "6a1618b6",
+   "id": "5b628d41",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -232,7 +232,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "add17886",
+   "id": "10c0d6af",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -243,7 +243,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1c046214",
+   "id": "2a9b7cb2",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -255,7 +255,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7d24c73c",
+   "id": "79bbfc73",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -270,7 +270,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0c4dc78d",
+   "id": "04855f0e",
    "metadata": {},
    "source": [
     "The pattern has shifted, with the sine wave in *B* looking much more like the random noise,\n",
@@ -280,7 +280,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "91f38853",
+   "id": "d4938fd0",
    "metadata": {},
    "source": [
     "## Road Test Feature Scores\n",
@@ -293,7 +293,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "3d62e086",
+   "id": "3928484d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -306,7 +306,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "561eba83",
+   "id": "07de5cb5",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -318,7 +318,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d0ae3624",
+   "id": "c1613af9",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -327,7 +327,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "0e2f18bf",
+   "id": "dbc702f5",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -341,7 +341,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "80d833a2",
+   "id": "c4aa80cf",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -351,7 +351,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "74e6515d",
+   "id": "5773bf0d",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -360,7 +360,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b4d805c9",
+   "id": "91d37319",
    "metadata": {},
    "source": [
     "The colors on the returned DataFrame highlight the most important input features\n",
@@ -375,7 +375,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d46d9c4c",
+   "id": "dbf20af8",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -384,7 +384,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8922108b",
+   "id": "8b88931e",
    "metadata": {},
    "source": [
     "You may also notice small changes in the numbers given in the two tables above. This\n",
@@ -396,7 +396,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b5dcbc9c",
+   "id": "eccb1ccf",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -405,7 +405,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a6207939",
+   "id": "1c832fcb",
    "metadata": {},
    "source": [
     "Then if we call the function again with the same `random_state`, we get the same numerical result."
@@ -414,7 +414,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e2ba267f",
+   "id": "e5479ae8",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -423,7 +423,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f8fa2f9f",
+   "id": "304dcae3",
    "metadata": {},
    "source": [
     "## Interpreting Feature Scores\n",
@@ -455,7 +455,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "036d745a",
+   "id": "c0174f20",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -472,7 +472,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "18de3eeb",
+   "id": "c1c393e2",
    "metadata": {},
    "source": [
     "Looking at the figure above, we can see the darker red clustered to the right,\n",
@@ -485,7 +485,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "878c05e1",
+   "id": "68ee591f",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -495,7 +495,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "514e98fe",
+   "id": "a50b85df",
    "metadata": {},
    "source": [
     "## Threshold Scoring"
@@ -503,7 +503,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "abb49574",
+   "id": "21fe714e",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -518,7 +518,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ad9b2545",
+   "id": "b348328c",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -529,7 +529,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "0b84bbcf",
+   "id": "ee3cdb3d",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -542,7 +542,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5b41570b",
+   "id": "78a3f9bd",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -552,7 +552,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a76ded4d",
+   "id": "c42a0608",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -561,7 +561,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0925a205",
+   "id": "928535dd",
    "metadata": {},
    "source": [
     "In these figures, we can see that \"expand_capacity\" is important for negative outcomes,\n",
@@ -571,7 +571,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e29eecfc",
+   "id": "a17c1c94",
    "metadata": {},
    "source": [
     "## Feature Scoring API "
@@ -579,7 +579,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "9f898f6d",
+   "id": "98139d26",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },

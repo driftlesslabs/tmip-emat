@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>emat.model.core_files.core_files &mdash; TMIP-EMAT 0.6.4, December 2024 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=9a0bcaaf" />
+  <title>emat.model.core_files.core_files &mdash; TMIP-EMAT 0.6.4, January 2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/tmip_emat.css?v=eec227e2" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
 
   
-      <script src="../../../../_static/documentation_options.js?v=c7554edb"></script>
+      <script src="../../../../_static/documentation_options.js?v=ff12c608"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/thebelab-helper.js"></script>
@@ -86,30 +86,30 @@
   <h1>Source code for emat.model.core_files.core_files</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">...model.core_model</span> <span class="kn">import</span> <span class="n">AbstractCoreModel</span>
-<span class="kn">from</span> <span class="nn">...scope.scope</span> <span class="kn">import</span> <span class="n">Scope</span>
-<span class="kn">from</span> <span class="nn">...database.database</span> <span class="kn">import</span> <span class="n">Database</span>
-<span class="kn">from</span> <span class="nn">...util.docstrings</span> <span class="kn">import</span> <span class="n">copydoc</span>
-<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.parsers</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">...util.loggers</span> <span class="kn">import</span> <span class="n">get_module_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...model.core_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractCoreModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...scope.scope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scope</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...database.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.docstrings</span><span class="w"> </span><span class="kn">import</span> <span class="n">copydoc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.parsers</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...util.loggers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_module_logger</span>
 
 <span class="n">_logger</span> <span class="o">=</span> <span class="n">get_module_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 
-<span class="k">def</span> <span class="nf">copy_model_outputs_1</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_model_outputs_1</span><span class="p">(</span>
 		<span class="n">local_model</span><span class="p">,</span>
 		<span class="n">remote_repository</span><span class="p">,</span>
 		<span class="n">file</span>
@@ -119,7 +119,7 @@
 		<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">remote_repository</span><span class="p">,</span> <span class="s2">&quot;Outputs&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
 	<span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">copy_model_outputs_ext</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copy_model_outputs_ext</span><span class="p">(</span>
 		<span class="n">local_model</span><span class="p">,</span>
 		<span class="n">remote_repository</span><span class="p">,</span>
 		<span class="n">basename</span><span class="p">,</span>
@@ -137,7 +137,7 @@
 
 <div class="viewcode-block" id="FilesCoreModel">
 <a class="viewcode-back" href="../../../../source/emat.models/files-api.html#emat.model.FilesCoreModel">[docs]</a>
-<span class="k">class</span> <span class="nc">FilesCoreModel</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FilesCoreModel</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Setup connections and paths to a file reading core model</span>
 
@@ -173,7 +173,7 @@
 
 <span class="sd">	&quot;&quot;&quot;</span>
 
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 				 <span class="n">configuration</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">],</span>
 				 <span class="n">scope</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
 				 <span class="n">safe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -204,29 +204,29 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_parsers</span> <span class="o">=</span> <span class="p">[]</span>
 
 	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;Path: The current local working directory for this model.&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_directory</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;local_directory&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 
 	<span class="nd">@local_directory</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">local_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_local_directory</span> <span class="o">=</span> <span class="n">value</span>
 
-	<span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="n">state</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
 		<span class="c1"># The SQLite Database does not serialize for usage in other</span>
 		<span class="c1"># threads or processes, so we will pass through the database path</span>
 		<span class="c1"># to open another new connection on the other end, assuming it is</span>
 		<span class="c1"># a file object that can be re-opened for other connections.</span>
 		<span class="n">db</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-		<span class="kn">from</span> <span class="nn">...database</span> <span class="kn">import</span> <span class="n">SQLiteDB</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">...database</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLiteDB</span>
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">SQLiteDB</span><span class="p">):</span>
 			<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">database_path</span><span class="p">):</span>
 				<span class="n">state</span><span class="p">[</span><span class="s1">&#39;_sqlitedb_path_&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">database_path</span>
 				<span class="n">state</span><span class="p">[</span><span class="s1">&#39;_sqlitedb_readonly_&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">readonly</span>
 		<span class="k">return</span> <span class="n">state</span>
 
-	<span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 		<span class="c1"># When we are running on a dask worker, functions</span>
 		<span class="c1"># are executed in a different thread from the worker</span>
 		<span class="c1"># itself, even if there is only one thread.  To prevent</span>
@@ -234,7 +234,7 @@
 		<span class="c1"># if there is only one thread, in which case we can</span>
 		<span class="c1"># safely ignore the fact that the database is accessed</span>
 		<span class="c1"># from a different thread than where it is created.</span>
-		<span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">get_worker</span>
+		<span class="kn">from</span><span class="w"> </span><span class="nn">dask.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_worker</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="n">worker</span> <span class="o">=</span> <span class="n">get_worker</span><span class="p">()</span>
 		<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -245,7 +245,7 @@
 		<span class="n">database_readonly</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_sqlitedb_readonly_&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">state</span>
 		<span class="k">if</span> <span class="n">database_path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">database_readonly</span><span class="p">:</span>
-			<span class="kn">from</span> <span class="nn">...database</span> <span class="kn">import</span> <span class="n">SQLiteDB</span>
+			<span class="kn">from</span><span class="w"> </span><span class="nn">...database</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLiteDB</span>
 			<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">database_path</span><span class="p">):</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">SQLiteDB</span><span class="p">(</span>
 					<span class="n">database_path</span><span class="p">,</span>
@@ -255,7 +255,7 @@
 				<span class="p">)</span>
 
 	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">resolved_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">resolved_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		The model path to use.</span>
 
@@ -273,7 +273,7 @@
 			<span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
 
 	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">resolved_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">resolved_archive_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		The archive path to use.</span>
 
@@ -292,7 +292,7 @@
 
 <div class="viewcode-block" id="FilesCoreModel.add_parser">
 <a class="viewcode-back" href="../../../../source/emat.models/files-api.html#emat.model.FilesCoreModel.add_parser">[docs]</a>
-	<span class="k">def</span> <span class="nf">add_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">add_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Add a FileParser to extract performance measures.</span>
 
@@ -307,7 +307,7 @@
 
 <div class="viewcode-block" id="FilesCoreModel.get_parser">
 <a class="viewcode-back" href="../../../../source/emat.models/files-api.html#emat.model.FilesCoreModel.get_parser">[docs]</a>
-	<span class="k">def</span> <span class="nf">get_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">get_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Access a FileParser, used to extract performance measures.</span>
 
@@ -320,12 +320,12 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parsers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
 
 
-	<span class="k">def</span> <span class="nf">model_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">model_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_init</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
 
 
 
-	<span class="k">def</span> <span class="nf">get_experiment_archive_path</span><span class="p">(</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">get_experiment_archive_path</span><span class="p">(</span>
 			<span class="bp">self</span><span class="p">,</span>
 			<span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			<span class="n">makedirs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -390,7 +390,7 @@
 			<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">mod_results_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 		<span class="k">return</span> <span class="n">mod_results_path</span>
 
-	<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Configure the core model with the experiment variable values.</span>
 
@@ -455,7 +455,7 @@
 					<span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span>
 				<span class="p">)</span>
 			<span class="k">else</span><span class="p">:</span>
-				<span class="kn">import</span> <span class="nn">uuid</span>
+				<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 				<span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 					<span class="n">experiment_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;experiment_id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 				<span class="n">run_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
@@ -484,7 +484,7 @@
 <div class="viewcode-block" id="FilesCoreModel.load_measures">
 <a class="viewcode-back" href="../../../../source/emat.models/files-api.html#emat.model.FilesCoreModel.load_measures">[docs]</a>
 	<span class="nd">@copydoc</span><span class="p">(</span><span class="n">AbstractCoreModel</span><span class="o">.</span><span class="n">load_measures</span><span class="p">)</span>
-	<span class="k">def</span> <span class="nf">load_measures</span><span class="p">(</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">load_measures</span><span class="p">(</span>
 			<span class="bp">self</span><span class="p">,</span>
 			<span class="n">measure_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 			<span class="o">*</span><span class="p">,</span>
@@ -536,7 +536,7 @@
 
 <div class="viewcode-block" id="FilesCoreModel.load_archived_measures">
 <a class="viewcode-back" href="../../../../source/emat.models/files-api.html#emat.model.FilesCoreModel.load_archived_measures">[docs]</a>
-	<span class="k">def</span> <span class="nf">load_archived_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">measure_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">load_archived_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">measure_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Load performance measures from an archived model run.</span>
 
@@ -550,7 +550,7 @@
 		<span class="n">experiment_archive_zip</span> <span class="o">=</span> <span class="n">experiment_archive_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.zip&quot;</span>
 		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">experiment_archive_zip</span><span class="p">):</span>
 			<span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;zipped archive found, loading from </span><span class="si">{</span><span class="n">experiment_archive_zip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-			<span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">zipfile</span>
+			<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">zipfile</span>
 			<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
 				<span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">experiment_archive_zip</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
 				<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_measures</span><span class="p">(</span>
@@ -571,13 +571,13 @@
 			<span class="p">)</span></div>
 
 
-	<span class="k">def</span> <span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model_results_path</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-	<span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">measure_names</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Runs post processors associated with particular performance measures.</span>
 

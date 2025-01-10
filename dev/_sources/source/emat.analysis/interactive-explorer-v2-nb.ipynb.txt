@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e3b0f4fd",
+   "id": "d253cc3b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "174877ea",
+   "id": "252cd563",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -23,7 +23,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "f5684424",
+   "id": "2ad20d8b",
    "metadata": {},
    "source": [
     "# Interactive Explorer\n",
@@ -40,7 +40,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "89846b01",
+   "id": "eae24c21",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -52,7 +52,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "584d1962",
+   "id": "82c12cc8",
    "metadata": {},
    "source": [
     "One feature of the visualizer is the ability to display not only a number of results,\n",
@@ -68,7 +68,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7859aac1",
+   "id": "a5575205",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -77,7 +77,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b36cc05e",
+   "id": "ebd702ac",
    "metadata": {},
    "source": [
     "The interactive visualizer class can be imported from the `emat.analysis` package.\n",
@@ -88,7 +88,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "77743798",
+   "id": "c334c200",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -98,7 +98,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5155015a",
+   "id": "3f205159",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -107,7 +107,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d43a7295",
+   "id": "8b65f726",
    "metadata": {},
    "source": [
     "## Single Dimension Figures\n",
@@ -136,7 +136,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "254df81e",
+   "id": "ba024336",
    "metadata": {},
    "source": [
     "![Selecting from histograms](interactive-gifs/select-from-histograms-.gif)"
@@ -145,7 +145,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7dc30a67",
+   "id": "a391a5ea",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -154,7 +154,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b32dde1d",
+   "id": "cfd3eb9a",
    "metadata": {},
    "source": [
     "It is also possible to display just a small subset of the figures of this interactive viewer.\n",
@@ -164,7 +164,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "1632104f",
+   "id": "30e0fb6b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -173,7 +173,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "6bc18a70",
+   "id": "1b1f6698",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -188,7 +188,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "cb9d7e67",
+   "id": "0d6889f6",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -201,7 +201,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "88ec8ce6",
+   "id": "14c3563f",
    "metadata": {},
    "source": [
     "Alternatively, a new box can be created and added to the Visualier\n",
@@ -212,7 +212,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "8afe1d46",
+   "id": "c4421655",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -221,7 +221,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "47f7848a",
+   "id": "1ba00cf1",
    "metadata": {},
    "source": [
     "Each of these new boxes is added to the `Visualizer` seperately. You can\n",
@@ -233,7 +233,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "260776c4",
+   "id": "06e651ae",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -242,7 +242,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3ac53616",
+   "id": "44db40ba",
    "metadata": {},
    "source": [
     "You can also programatically find and change the active box from Python:"
@@ -251,7 +251,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d007cb13",
+   "id": "448b0643",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -261,7 +261,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ce07e476",
+   "id": "6c3d8112",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -271,7 +271,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "77487eb0",
+   "id": "34ba2f62",
    "metadata": {},
    "source": [
     "When interactively changing bounds by dragging on figures, the currently \n",
@@ -284,7 +284,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a4f34696",
+   "id": "0435a1c9",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -293,7 +293,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "d6d78d89",
+   "id": "4d1d2234",
    "metadata": {},
    "source": [
     "If instead we want to manipulate an existing box selection, we can access the Box object, \n",
@@ -304,7 +304,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ebf28417",
+   "id": "b437cbe7",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -315,7 +315,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "511ced31",
+   "id": "9e68b46e",
    "metadata": {},
    "source": [
     "## Two Dimension Figures"
@@ -323,7 +323,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "ade5320c",
+   "id": "01f3b5f4",
    "metadata": {},
    "source": [
     "The `Visualizer` object can also create an interactive two-dimensional scatter plot,\n",
@@ -339,7 +339,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "ba9a19ea",
+   "id": "363c1d01",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -348,7 +348,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "be3d10e3",
+   "id": "c148f69d",
    "metadata": {},
    "source": [
     "One useful feature of the `two_way` is the ability to manually \"lasso\" a selection of \n",
@@ -363,7 +363,7 @@
   },
   {
    "cell_type": "raw",
-   "id": "df022e5d",
+   "id": "8840d10b",
    "metadata": {
     "raw_mimetype": "text/restructuredtext"
    },
@@ -376,7 +376,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b3d86d2a",
+   "id": "8f176756",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -390,7 +390,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "739f5996",
+   "id": "4fb98c79",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -405,7 +405,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "a908b070",
+   "id": "2f4ac74f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -417,7 +417,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "322a6923",
+   "id": "eb19e34d",
    "metadata": {},
    "source": [
     "## Dynamic Feature Scoring\n",
@@ -430,7 +430,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "84282808",
+   "id": "105c1eee",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -439,7 +439,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4ecbd0c0",
+   "id": "dd7e5993",
    "metadata": {},
    "source": [
     "## Using PRIM with the Interactive Explorer\n",
@@ -451,7 +451,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "39ec2fb6",
+   "id": "c83267df",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -461,7 +461,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4c96ea91",
+   "id": "831a4f53",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -470,7 +470,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "a81165d8",
+   "id": "93f51062",
    "metadata": {},
    "source": [
     "The tradeoff selector is directly integrated into the explorer.  In addition\n",
@@ -483,7 +483,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "cf5dda76",
+   "id": "dbcf38d6",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -493,7 +493,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "96a39796",
+   "id": "f7bea3d5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -503,7 +503,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "9f6bf161",
+   "id": "405c1d78",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -513,7 +513,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "04391e2d",
+   "id": "a2bfc333",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -522,7 +522,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6f6d68a4",
+   "id": "a30d586d",
    "metadata": {},
    "source": [
     "We can also use PRIM to explore solutions based only on manipulating the\n",
@@ -532,7 +532,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "b15fb852",
+   "id": "5b5569a2",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -542,7 +542,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "62fea9c1",
+   "id": "00f90223",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -552,7 +552,7 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "321654e7",
+   "id": "dfe64a3f",
    "metadata": {},
    "outputs": [],
    "source": [
